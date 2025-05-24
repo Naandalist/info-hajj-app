@@ -3,8 +3,7 @@ import {Provider} from 'react-redux';
 import {store} from './src/store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import HomeScreen from './src/screens/HomeScreen';
-import DetailScreen from './src/screens/DetailScreen';
+import {HomeScreen, DetailScreen} from '@/screens';
 import Toast from 'react-native-toast-message';
 
 export type RootStackParamList = {

@@ -4,7 +4,8 @@ declare module 'react-native-config' {
     HOST: string;
     API_KEY: string;
     ENDPOINT_HAJI_INFO: string;
-    // add any other keys that expect in dot env here
+    NEWS_API_URL: string;
+    NEWS_API_TOKEN: string;
   }
 
   export const Config: NativeConfig;
