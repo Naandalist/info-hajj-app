@@ -1,3 +1,21 @@
 {
-  "extends": "@react-native/typescript-config/tsconfig.json"
+  "extends": "@react-native/typescript-config/tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": ["./node_modules/@types", "./src/types"], // Your existing typeRoots
+    "baseUrl": ".", // Sets the base directory for module resolution to the project root.
+    "paths": {
+      "@/*": ["src/*"] // Maps any import starting with "@/" to the "src/" directory.
+      // So, "@/components/NewsCard" will resolve to "src/components/NewsCard".
+    }
+    // Other compilerOptions will be inherited from the extended config.
+    // Ensure options like "jsx": "react-native", "moduleResolution": "node"
+    // are correctly set by the base config or add them here if needed.
+  },
+  "include": [
+    "src", // Ensures all files within the 'src' directory are included
+    "src/types" // Your existing include for types
+    // You might also want to include other specific files or patterns if necessary,
+    // e.g., "index.js" if it's at the root.
+  ]
+  // "exclude" is typically inherited (e.g., "node_modules")
 }
