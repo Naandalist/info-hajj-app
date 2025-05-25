@@ -1,3 +1,5 @@
+import {DetailEstimasiKeberangkatan, DetailInfoPelunasanHaji} from '@/services';
+import {formatCurrency, isStatusLunas} from '@/utils';
 import React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 
@@ -29,7 +31,9 @@ interface JemaahHajiDetail {
 }
 
 interface DetailInfoJemaahHajiProps {
-  detail: JemaahHajiDetail;
+  infoJemaahHaji: JemaahHajiDetail;
+  infoPelunasanHaji?: DetailInfoPelunasanHaji | null;
+  detail: DetailEstimasiKeberangkatan;
 }
 
 interface InfoItemProps {
@@ -72,13 +76,19 @@ const SectionTitle: React.FC<SectionTitleProps> = ({title}) => (
 );
 
 const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
+  infoJemaahHaji,
+  infoPelunasanHaji,
   detail,
 }) => {
-  const profileImageUrl = detail.url_foto
-    ? detail.url_foto
+  const profileImageUrl = infoJemaahHaji.url_foto
+    ? infoJemaahHaji.url_foto
     : `https://ui-avatars.com/api/?name=${encodeURIComponent(
-        detail.nama_paspor,
+        infoJemaahHaji.nama_paspor,
       )}&size=256&background=random&font-size=0.33&color=fff`;
+
+  const status = isStatusLunas('LUNAS 1446H');
+  const statusColor = status ? '#38A169' : '#E53E3E';
+  const statusBackgroundColor = status ? '#C6F6D5' : '#FED7D7';
 
   // Helper untuk mengecek apakah sebuah section punya data valid untuk ditampilkan
   const hasValidData = (
@@ -94,35 +104,35 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
   };
 
   const showInformasiKeberangkatan = hasValidData(
-    detail.tgl_berangkat,
-    detail.kloter_berangkat,
-    detail.no_rombongan_berangkat,
-    detail.ketua_kloter_berangkat,
-    detail.no_hp_ketua_berangkat,
-    detail.ketua_rombongan_berangkat,
+    infoJemaahHaji.tgl_berangkat,
+    infoJemaahHaji.kloter_berangkat,
+    infoJemaahHaji.no_rombongan_berangkat,
+    infoJemaahHaji.ketua_kloter_berangkat,
+    infoJemaahHaji.no_hp_ketua_berangkat,
+    infoJemaahHaji.ketua_rombongan_berangkat,
   );
 
   const showAkomodasiMakkah = hasValidData(
-    detail.hotel_makkah,
-    detail.no_hotel_makkah,
-    detail.wilayah_makkah,
-    detail.sektor_makkah,
-    detail.maktab,
+    infoJemaahHaji.hotel_makkah,
+    infoJemaahHaji.no_hotel_makkah,
+    infoJemaahHaji.wilayah_makkah,
+    infoJemaahHaji.sektor_makkah,
+    infoJemaahHaji.maktab,
   );
 
   const showAkomodasiMadinah = hasValidData(
-    detail.hotel_madinah,
-    detail.no_hotel_madinah,
-    detail.wilayah_madinah,
-    detail.sektor_madinah,
+    infoJemaahHaji.hotel_madinah,
+    infoJemaahHaji.no_hotel_madinah,
+    infoJemaahHaji.wilayah_madinah,
+    infoJemaahHaji.sektor_madinah,
   );
 
   const showInformasiKepulangan = hasValidData(
-    detail.tgl_pulang,
-    detail.kloter_pulang,
-    detail.ketua_kloter_pulang,
-    detail.no_hp_ketua_pulang,
-    detail.ketua_rombongan_pulang,
+    infoJemaahHaji.tgl_pulang,
+    infoJemaahHaji.kloter_pulang,
+    infoJemaahHaji.ketua_kloter_pulang,
+    infoJemaahHaji.no_hp_ketua_pulang,
+    infoJemaahHaji.ketua_rombongan_pulang,
   );
 
   return (
@@ -132,14 +142,31 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
       {/* Bagian Profil */}
       <View style={styles.profileSection}>
         <Image source={{uri: profileImageUrl}} style={styles.profileImage} />
+
         <Text style={styles.profileName}>
-          {detail.nama_paspor || 'Nama Tidak Tersedia'}
+          {infoJemaahHaji.nama_paspor || 'Nama Tidak Tersedia'}
+        </Text>
+        <Text style={styles.profileGroup}>
+          {detail.kabupaten}, {detail.propinsi}
         </Text>
         <Text style={styles.profilePorsi}>
-          Nomor Porsi: {detail.kd_porsi || '-'}
+          Nomor Porsi: {infoJemaahHaji.kd_porsi || '-'}
         </Text>
-        {detail.no_paspor && (
-          <Text style={styles.profileInfo}>No. Paspor: {detail.no_paspor}</Text>
+        {infoJemaahHaji.no_paspor && (
+          <Text style={styles.profileInfo}>
+            No. Paspor: {infoJemaahHaji.no_paspor}
+          </Text>
+        )}
+        {infoPelunasanHaji?.status_pelunasan && (
+          <Text
+            style={[
+              styles.profileStatusBayarBase,
+              {color: statusColor, backgroundColor: statusBackgroundColor},
+            ]}>
+            {isStatusLunas(infoPelunasanHaji.status_pelunasan)
+              ? 'SUDAH LUNAS'
+              : 'BELUM LUNAS'}
+          </Text>
         )}
       </View>
 
@@ -151,28 +178,28 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
             <SectionTitle title="Informasi Keberangkatan" />
             <InfoItem
               label="Tanggal & Waktu Berangkat"
-              value={detail.tgl_berangkat}
+              value={infoJemaahHaji.tgl_berangkat}
             />
             <InfoItem
               label="Kloter Keberangkatan"
-              value={detail.kloter_berangkat}
+              value={infoJemaahHaji.kloter_berangkat}
               isMultiLine
             />
             <InfoItem
               label="No. Rombongan Berangkat"
-              value={detail.no_rombongan_berangkat}
+              value={infoJemaahHaji.no_rombongan_berangkat}
             />
             <InfoItem
               label="Ketua Kloter Berangkat"
-              value={detail.ketua_kloter_berangkat}
+              value={infoJemaahHaji.ketua_kloter_berangkat}
             />
             <InfoItem
               label="No. HP Ketua Kloter"
-              value={detail.no_hp_ketua_berangkat}
+              value={infoJemaahHaji.no_hp_ketua_berangkat}
             />
             <InfoItem
               label="Ketua Rombongan Berangkat"
-              value={detail.ketua_rombongan_berangkat}
+              value={infoJemaahHaji.ketua_rombongan_berangkat}
             />
           </View>
         </>
@@ -184,14 +211,18 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
           <View style={styles.divider} />
           <View style={styles.section}>
             <SectionTitle title="Akomodasi Makkah" />
-            <InfoItem label="Hotel" value={detail.hotel_makkah} isMultiLine />
+            <InfoItem
+              label="Hotel"
+              value={infoJemaahHaji.hotel_makkah}
+              isMultiLine
+            />
             <InfoItem
               label="Nomor Hotel/Kamar"
-              value={detail.no_hotel_makkah}
+              value={infoJemaahHaji.no_hotel_makkah}
             />
-            <InfoItem label="Wilayah" value={detail.wilayah_makkah} />
-            <InfoItem label="Sektor" value={detail.sektor_makkah} />
-            <InfoItem label="Maktab" value={detail.maktab} />
+            <InfoItem label="Wilayah" value={infoJemaahHaji.wilayah_makkah} />
+            <InfoItem label="Sektor" value={infoJemaahHaji.sektor_makkah} />
+            <InfoItem label="Maktab" value={infoJemaahHaji.maktab} />
           </View>
         </>
       )}
@@ -202,13 +233,17 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
           <View style={styles.divider} />
           <View style={styles.section}>
             <SectionTitle title="Akomodasi Madinah" />
-            <InfoItem label="Hotel" value={detail.hotel_madinah} isMultiLine />
+            <InfoItem
+              label="Hotel"
+              value={infoJemaahHaji.hotel_madinah}
+              isMultiLine
+            />
             <InfoItem
               label="Nomor Hotel/Kamar"
-              value={detail.no_hotel_madinah}
+              value={infoJemaahHaji.no_hotel_madinah}
             />
-            <InfoItem label="Wilayah" value={detail.wilayah_madinah} />
-            <InfoItem label="Sektor" value={detail.sektor_madinah} />
+            <InfoItem label="Wilayah" value={infoJemaahHaji.wilayah_madinah} />
+            <InfoItem label="Sektor" value={infoJemaahHaji.sektor_madinah} />
           </View>
         </>
       )}
@@ -221,27 +256,93 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
             <SectionTitle title="Informasi Kepulangan" />
             <InfoItem
               label="Tanggal & Waktu Pulang"
-              value={detail.tgl_pulang}
+              value={infoJemaahHaji.tgl_pulang}
             />
             <InfoItem
               label="Kloter Kepulangan"
-              value={detail.kloter_pulang}
+              value={infoJemaahHaji.kloter_pulang}
               isMultiLine
             />
             <InfoItem
               label="Ketua Kloter Pulang"
-              value={detail.ketua_kloter_pulang}
+              value={infoJemaahHaji.ketua_kloter_pulang}
             />
             <InfoItem
               label="No. HP Ketua Kloter"
-              value={detail.no_hp_ketua_pulang}
+              value={infoJemaahHaji.no_hp_ketua_pulang}
             />
             <InfoItem
               label="Ketua Rombongan Pulang"
-              value={detail.ketua_rombongan_pulang}
+              value={infoJemaahHaji.ketua_rombongan_pulang}
             />
           </View>
         </>
+      )}
+
+      {infoPelunasanHaji && (
+        <React.Fragment>
+          {/* Informasi Pelunasan Section */}
+          <View style={styles.divider} />
+
+          <View style={styles.section}>
+            <SectionTitle title="Informasi Pelunasan" />
+            <View style={styles.infoRow}>
+              <InfoItem
+                label="Tahun Pelunasan"
+                value={infoPelunasanHaji.tahun_pelunasan}
+                flex={1}
+              />
+              <InfoItem
+                label="Tahap Pelunasan"
+                value={infoPelunasanHaji.tahap_pelunasan}
+                flex={1}
+              />
+            </View>
+            <View style={styles.infoRow}>
+              <InfoItem
+                label="Status Cadangan"
+                value={infoPelunasanHaji.status_cadangan}
+                flex={1}
+              />
+              <InfoItem
+                label="Status Istitha'ah"
+                value={infoPelunasanHaji.status_istithaah}
+                flex={1}
+              />
+            </View>
+            <InfoItem
+              label="Biaya Perjalanan Ibadah Haji (BIPIH)"
+              value={formatCurrency(infoPelunasanHaji.biaya_bipih)}
+            />
+            <InfoItem
+              label="Setoran Awal"
+              value={formatCurrency(infoPelunasanHaji.setoran_awal)}
+            />
+            <InfoItem
+              label="Nilai Manfaat"
+              value={formatCurrency(infoPelunasanHaji.nilai_manfaat)}
+            />
+            <InfoItem
+              label="Jumlah Pelunasan"
+              value={formatCurrency(infoPelunasanHaji.jumlah_pelunasan)}
+            />
+          </View>
+          <View style={styles.divider} />
+
+          {/* Informasi Bank & Embarkasi Section */}
+          <View style={styles.section}>
+            <SectionTitle title="Informasi Bank & Embarkasi" />
+            <InfoItem
+              label="Bank Penerima Setoran"
+              value={infoPelunasanHaji.bank}
+            />
+            <InfoItem
+              label="Nomor Rekening"
+              value={infoPelunasanHaji.nomor_rekening || '-'} // Show '-' if empty
+            />
+            <InfoItem label="Embarkasi" value={infoPelunasanHaji.embarkasi} />
+          </View>
+        </React.Fragment>
       )}
     </ScrollView>
   );
@@ -259,12 +360,16 @@ const styles = StyleSheet.create({
     paddingVertical: 24,
     paddingHorizontal: 16,
   },
+
   profileImage: {
     width: 100,
     height: 100,
-    borderRadius: 50,
-    backgroundColor: '#E0E0E0',
+    backgroundColor: '#FFF',
     marginBottom: 16,
+    marginHorizontal: 16,
+    borderWidth: 3,
+    borderColor: '#000',
+    borderStyle: 'dashed',
   },
   profileName: {
     fontSize: 22,
@@ -272,6 +377,12 @@ const styles = StyleSheet.create({
     color: '#1A202C',
     textAlign: 'center',
     marginBottom: 6,
+  },
+  profileGroup: {
+    fontSize: 16,
+    color: '#4A5568',
+    textAlign: 'center',
+    marginBottom: 4,
   },
   profilePorsi: {
     fontSize: 16,
@@ -282,6 +393,16 @@ const styles = StyleSheet.create({
   profileInfo: {
     fontSize: 16,
     color: '#4A5568',
+    textAlign: 'center',
+  },
+  profileStatusBayarBase: {
+    marginTop: 8,
+    fontSize: 16,
+    fontWeight: 'bold',
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 0,
+    overflow: 'hidden',
     textAlign: 'center',
   },
   section: {
@@ -315,6 +436,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderStyle: 'dashed',
     marginHorizontal: 16,
+  },
+  infoRow: {
+    flexDirection: 'row',
+    marginBottom: 14,
   },
 });
 
