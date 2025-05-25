@@ -80,9 +80,16 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
     if (
       !isLoadingInfoJemaahHaji &&
       !isLoadingInfoPelunasanHaji &&
-      infoJemaahHaji
+      infoJemaahHaji &&
+      infoPelunasanHaji
     ) {
-      return <DetailInfoJemaahHaji detail={infoJemaahHaji} />;
+      return (
+        <DetailInfoJemaahHaji
+          infoJemaahHaji={infoJemaahHaji}
+          infoPelunasanHaji={infoPelunasanHaji}
+          detail={detail}
+        />
+      );
     }
     if (
       infoJemaahHaji === null &&
@@ -107,18 +114,6 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
         <FeatherIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
       <View style={styles.spacer} />
-      {/* {isLoadingInfoJemaahHaji && (
-        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-          <FeatherIcon name="loader" size={24} color="#000" />
-        </View>
-      )} */}
-      {/* {infoJemaahHaji && <DetailInfoJemaahHaji detail={infoJemaahHaji} />} */}
-      {/* {infoPelunasanHaji && (
-        <DetailEstimasiKeberangkatan
-          detail={detail}
-          infoPelunasanHaji={infoPelunasanHaji}
-        />
-      )} */}
       {contentDetail()}
     </SafeAreaView>
   );
