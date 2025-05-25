@@ -4,6 +4,7 @@ import type {
   DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType,
   DetailInfoPelunasanHaji as DetailInfoPelunasanHajiType,
 } from '@/services';
+import {isStatusLunas} from '@/utils';
 interface InfoItemProps {
   label: string;
   value: string | number;
@@ -35,11 +36,11 @@ const DetailEstimasiKeberangkatan: React.FC<
 > = ({detail, infoPelunasanHaji}) => {
   const profileImageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
     detail.nama,
-  )}&size=256&background=E53E3E&font-size=0.33&color=fff`;
+  )}&size=256&background=badc58&font-size=0.33&color=fff`;
 
-  const statusColor = detail.status_bayar === 'Lunas' ? '#38A169' : '#E53E3E';
-  const statusBackgroundColor =
-    detail.status_bayar === 'Lunas' ? '#C6F6D5' : '#FED7D7';
+  const status = isStatusLunas(infoPelunasanHaji?.status_pelunasan || '');
+  const statusColor = status ? '#38A169' : '#E53E3E';
+  const statusBackgroundColor = status ? '#C6F6D5' : '#FED7D7';
 
   const formatCurrency = (amount: number) => {
     return new Intl.NumberFormat('id-ID', {
@@ -62,13 +63,17 @@ const DetailEstimasiKeberangkatan: React.FC<
           {detail.kabupaten}, {detail.propinsi}
         </Text>
         <Text style={styles.profilePorsi}>Nomor Porsi: {detail.kd_porsi}</Text>
-        <Text
-          style={[
-            styles.profileStatusBayarBase,
-            {color: statusColor, backgroundColor: statusBackgroundColor},
-          ]}>
-          Status Pembayaran: {detail.status_bayar}
-        </Text>
+        {infoPelunasanHaji?.status_pelunasan && (
+          <Text
+            style={[
+              styles.profileStatusBayarBase,
+              {color: statusColor, backgroundColor: statusBackgroundColor},
+            ]}>
+            {isStatusLunas(infoPelunasanHaji.status_pelunasan)
+              ? 'SUDAH LUNAS'
+              : 'BELUM LUNAS'}
+          </Text>
+        )}
       </View>
       <View style={styles.divider} />
       {/* Flight Details Section - Only shows available data */}
@@ -188,18 +193,11 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 100,
     height: 100,
-    borderRadius: 50,
+
     backgroundColor: '#E0E0E0',
     marginBottom: 16,
     borderWidth: 2,
-    borderColor: 'grey',
-    overflow: 'hidden',
-    resizeMode: 'cover',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
+    borderColor: '#6ab04c',
   },
   profileName: {
     fontSize: 24,
