@@ -32,8 +32,8 @@ async function checkServer(): Promise<boolean> {
     if (
       responseData &&
       responseData.data &&
-      responseData.data?.ResponseCode === '00' &&
-      responseData.data?.ResponseMessage === 'Berhasil'
+      responseData.data.ResponseCode === '00' &&
+      responseData.data.ResposeMessage === 'Berhasil'
     ) {
       return true;
     } else {

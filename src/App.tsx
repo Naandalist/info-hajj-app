@@ -19,7 +19,7 @@ if (__DEV__) {
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: {detail: import('./services/hajiApi').HajiDetail};
+  Details: {detail: import('./services/hajiApi').DetailEstimasiKeberangkatan};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -36,7 +36,7 @@ const App = () => (
         <Stack.Screen
           name="Details"
           component={DetailScreen}
-          options={{title: 'Detail Haji', animation: 'slide_from_right'}}
+          options={{headerShown: false, animation: 'slide_from_right'}}
         />
       </Stack.Navigator>
       <Toast />

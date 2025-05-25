@@ -21,7 +21,10 @@ import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
 import {checkServer} from '@/utils/checkServer';
-import {useGetArticlesQuery, useGetHajiInfoMutation} from '@/services';
+import {
+  useGetArticlesQuery,
+  useGetEstimasiKeberangkatanMutation,
+} from '@/services';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -47,7 +50,8 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const [getHajiInfo, {isLoading: getHajiLoading}] = useGetHajiInfoMutation();
+  const [getHajiInfo, {isLoading: getHajiLoading}] =
+    useGetEstimasiKeberangkatanMutation();
 
   const {
     control,
@@ -75,7 +79,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       .unwrap()
       .then(response => {
         const {ResponseCode, ResposeMessage, Data} = response.data;
-        console.log('✅ Response:', response.data);
         if (ResponseCode === '00' && Data.length > 0) {
           navigation.navigate('Details', {detail: Data[0]});
         } else {
@@ -86,7 +89,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         Toast.show({
           type: 'error',
           text1: 'NOMOR PORSI TIDAK DITEMUKAN',
-          text2: 'Silahkan coba beberapa saat lagi nanti.',
+          text2: 'Gunakan nomor porsi yang valid.',
         });
       });
   };
