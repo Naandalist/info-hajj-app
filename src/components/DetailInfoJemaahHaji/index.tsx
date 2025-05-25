@@ -15,6 +15,7 @@ interface JemaahHajiDetail {
   no_rombongan_berangkat?: number | string;
   tgl_pulang?: string;
   kloter_pulang?: string;
+  no_rombongan_pulang_x?: number | string;
   ketua_kloter_pulang?: string;
   no_hp_ketua_pulang?: string;
   ketua_rombongan_pulang?: string;
@@ -63,6 +64,7 @@ const InfoItem: React.FC<InfoItemProps> = ({
       <Text style={[styles.infoValue, isMultiLine && styles.multiLineValue]}>
         {String(value)}
       </Text>
+      <View style={!flex && styles.verticalSpace10} />
     </View>
   );
 };
@@ -133,6 +135,7 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
     infoJemaahHaji.ketua_kloter_pulang,
     infoJemaahHaji.no_hp_ketua_pulang,
     infoJemaahHaji.ketua_rombongan_pulang,
+    infoJemaahHaji.no_rombongan_pulang_x,
   );
 
   return (
@@ -261,6 +264,11 @@ const DetailInfoJemaahHaji: React.FC<DetailInfoJemaahHajiProps> = ({
             <InfoItem
               label="Kloter Kepulangan"
               value={infoJemaahHaji.kloter_pulang}
+              isMultiLine
+            />
+            <InfoItem
+              label="No. Rombongan Pulang"
+              value={infoJemaahHaji.no_rombongan_pulang_x}
               isMultiLine
             />
             <InfoItem
@@ -440,6 +448,9 @@ const styles = StyleSheet.create({
   infoRow: {
     flexDirection: 'row',
     marginBottom: 14,
+  },
+  verticalSpace10: {
+    height: 10,
   },
 });
 

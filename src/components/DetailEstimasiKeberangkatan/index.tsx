@@ -15,6 +15,7 @@ const InfoItem: React.FC<InfoItemProps> = ({label, value, flex}) => (
   <View style={[styles.infoItemContainer, {flex: flex || 0}]}>
     <Text style={styles.infoLabel}>{label}</Text>
     <Text style={styles.infoValue}>{String(value)}</Text>
+    <View style={!flex && styles.verticalSpace10} />
   </View>
 );
 
@@ -34,13 +35,13 @@ interface DetailEstimasiKeberangkatanProps {
 const DetailEstimasiKeberangkatan: React.FC<
   DetailEstimasiKeberangkatanProps
 > = ({detail, infoPelunasanHaji}) => {
-  const profileImageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
-    detail.nama,
-  )}&size=256&background=badc58&font-size=0.33&color=fff`;
-
   const status = isStatusLunas(infoPelunasanHaji?.status_pelunasan || '');
   const statusColor = status ? '#38A169' : '#E53E3E';
   const statusBackgroundColor = status ? '#C6F6D5' : '#FED7D7';
+
+  const profileImageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
+    detail.nama,
+  )}&size=256&background=${statusColor.slice(1)}&font-size=0.33&color=fff`;
 
   return (
     <ScrollView
@@ -90,12 +91,12 @@ const DetailEstimasiKeberangkatan: React.FC<
         <View style={styles.infoRow}>
           <InfoItem
             label="Posisi Porsi Saat Ini"
-            value={detail.posisiporsi}
+            value={detail.posisiporsi.toLocaleString('id-ID')}
             flex={1}
           />
           <InfoItem
             label="Kuota Provinsi"
-            value={detail.kuotapropinsi}
+            value={detail.kuotapropinsi.toLocaleString('id-ID')}
             flex={1}
           />
         </View>
@@ -157,10 +158,13 @@ const DetailEstimasiKeberangkatan: React.FC<
               label="Bank Penerima Setoran"
               value={infoPelunasanHaji.bank}
             />
-            <InfoItem
-              label="Nomor Rekening"
-              value={infoPelunasanHaji.nomor_rekening || '-'} // Show '-' if empty
-            />
+            {infoPelunasanHaji.nomor_rekening &&
+              infoPelunasanHaji.nomor_rekening !== '-' && (
+                <InfoItem
+                  label="Nomor Rekening"
+                  value={infoPelunasanHaji.nomor_rekening || '-'} // Show '-' if empty
+                />
+              )}
             <InfoItem label="Embarkasi" value={infoPelunasanHaji.embarkasi} />
           </View>
         </React.Fragment>
@@ -184,11 +188,8 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 100,
     height: 100,
-
     backgroundColor: '#E0E0E0',
     marginBottom: 16,
-    borderWidth: 2,
-    borderColor: '#6ab04c',
   },
   profileName: {
     fontSize: 24,
@@ -250,6 +251,9 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderStyle: 'dashed',
     marginHorizontal: 16,
+  },
+  verticalSpace10: {
+    height: 10,
   },
 });
 
