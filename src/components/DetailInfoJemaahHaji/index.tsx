@@ -311,8 +311,10 @@ const styles = StyleSheet.create({
     lineHeight: 20,
   },
   divider: {
-    height: 1,
-    backgroundColor: '#E2E8F0',
+    borderBottomColor: '#777',
+    borderBottomWidth: 1,
+    borderStyle: 'dashed',
+    marginHorizontal: 16,
   },
 });
 
