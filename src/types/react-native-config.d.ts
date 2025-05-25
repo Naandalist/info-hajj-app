@@ -1,11 +1,15 @@
 declare module 'react-native-config' {
   export interface NativeConfig {
-    API_URL: string;
-    HOST: string;
-    API_KEY: string;
-    ENDPOINT_HAJI_INFO: string;
+    HAJI_API_URL: string;
+    HAJI_HOST: string;
+    HAJI_API_KEY: string;
+    HAJI_ENDPOINT_INFO: string;
     NEWS_API_URL: string;
     NEWS_API_TOKEN: string;
+    NEWS_HOST: string;
+    NEWS_USER_AGENT: string;
+    HAJI_USER_AGENT: string;
+    PORSI_NUMBER_TEST: string;
   }
 
   export const Config: NativeConfig;

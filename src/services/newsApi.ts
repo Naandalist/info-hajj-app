@@ -24,7 +24,6 @@ export interface NewsArticle {
   published_at: string;
 }
 
-// Helper to delay for ms milliseconds
 const delay = (ms: number) =>
   new Promise<void>(resolve => setTimeout(() => resolve(), ms));
 
@@ -32,8 +31,8 @@ const rawBaseQuery = fetchBaseQuery({
   baseUrl: Config.NEWS_API_URL,
   prepareHeaders: headers => {
     headers.set('Authorization', `Bearer ${Config.NEWS_API_TOKEN}`);
-    headers.set('host', 'nuonline.cms.nu.or.id');
-    headers.set('User-Agent', 'Dart/3.6 (dart:io)');
+    headers.set('host', Config.NEWS_HOST);
+    headers.set('User-Agent', Config.NEWS_USER_AGENT);
     return headers;
   },
 });
@@ -44,7 +43,7 @@ const delayedBaseQuery: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await rawBaseQuery(args, api, extraOptions);
-  await delay(2000);
+  await delay(0);
   return result;
 };
 

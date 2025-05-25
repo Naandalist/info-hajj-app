@@ -68,7 +68,7 @@ const cardStyles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     marginBottom: 16,
 
-    marginHorizontal: 4,
+    marginHorizontal: 16,
     borderBottomWidth: 1,
     borderBottomColor: 'grey',
     borderStyle: 'dashed',

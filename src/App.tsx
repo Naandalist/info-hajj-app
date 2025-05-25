@@ -1,14 +1,25 @@
 import React from 'react';
 import {Provider} from 'react-redux';
-import {store} from './src/store';
+import {store} from './store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen, DetailScreen} from '@/screens';
 import Toast from 'react-native-toast-message';
 
+import Reactotron from './reactotronConfig';
+
+// Optional: override console.log to also log to Reactotron
+if (__DEV__) {
+  const consoleLog = console.log;
+  console.log = (...args) => {
+    Reactotron.log(...args);
+    consoleLog(...args);
+  };
+}
+
 export type RootStackParamList = {
   Home: undefined;
-  Details: {detail: import('./src/services/hajiApi').HajiDetail};
+  Details: {detail: import('./services/hajiApi').HajiDetail};
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -25,7 +36,7 @@ const App = () => (
         <Stack.Screen
           name="Details"
           component={DetailScreen}
-          options={{title: 'Detail Haji'}}
+          options={{title: 'Detail Haji', animation: 'slide_from_right'}}
         />
       </Stack.Navigator>
       <Toast />

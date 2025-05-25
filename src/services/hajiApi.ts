@@ -26,18 +26,18 @@ export interface HajiResponse {
 export const hajiApi = createApi({
   reducerPath: 'hajiApi',
   baseQuery: fetchBaseQuery({
-    baseUrl: Config.API_URL,
+    baseUrl: Config.HAJI_API_URL,
     prepareHeaders: headers => {
-      headers.set('host', Config.HOST);
-      headers.set('User-Agent', 'Android');
-      headers.set('x-key', Config.API_KEY);
+      headers.set('host', Config.HAJI_HOST);
+      headers.set('User-Agent', Config.HAJI_USER_AGENT);
+      headers.set('x-key', Config.HAJI_API_KEY);
       return headers;
     },
   }),
   endpoints: builder => ({
     getHajiInfo: builder.mutation<HajiResponse, {no_porsi: string}>({
       query: body => ({
-        url: Config.ENDPOINT_HAJI_INFO,
+        url: Config.HAJI_ENDPOINT_INFO,
         method: 'POST',
         body,
       }),

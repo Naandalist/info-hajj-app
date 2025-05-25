@@ -14,12 +14,14 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import Toast from 'react-native-toast-message';
-import Icon from 'react-native-vector-icons/Feather';
-import {useGetArticlesQuery, useGetHajiInfoMutation} from '@/services';
-import {RootStackParamList} from '../../../App';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import {RootStackParamList} from '../../App';
 import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
+import {checkServer} from '@/utils/checkServer';
+import {useGetArticlesQuery, useGetHajiInfoMutation} from '@/services';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -45,7 +47,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const [getHajiInfo, {isLoading}] = useGetHajiInfoMutation();
+  const [getHajiInfo, {isLoading: getHajiLoading}] = useGetHajiInfoMutation();
 
   const {
     control,
@@ -57,7 +59,18 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     mode: 'onSubmit',
   });
 
-  const onSubmit: SubmitHandler<PorsiFormInputs> = ({porsiNumber}) => {
+  const onSubmit: SubmitHandler<PorsiFormInputs> = async ({porsiNumber}) => {
+    const serverAvailability = await checkServer();
+
+    if (!serverAvailability) {
+      Toast.show({
+        type: 'error',
+        text1: 'SERVER SEDANG PEMELIHARAAN',
+        text2: 'Silahkan coba beberapa saat lagi nanti.',
+      });
+      return;
+    }
+
     getHajiInfo({no_porsi: porsiNumber})
       .unwrap()
       .then(response => {
@@ -72,7 +85,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       .catch(() => {
         Toast.show({
           type: 'error',
-          text1: 'Nomor porsi tidak ditemukan',
+          text1: 'NOMOR PORSI TIDAK DITEMUKAN',
           text2: 'Silahkan coba beberapa saat lagi nanti.',
         });
       });
@@ -125,7 +138,12 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
                 styles.inputContainer,
                 errors.porsiNumber && styles.inputError,
               ]}>
-              <Icon name="search" size={20} color="#777" style={styles.icon} />
+              <FeatherIcon
+                name="search"
+                size={20}
+                color="#777"
+                style={styles.icon}
+              />
               <Controller
                 control={control}
                 name="porsiNumber"
@@ -158,15 +176,15 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               />
             </View>
             <TouchableOpacity
-              style={[styles.button, isLoading && styles.buttonDisabled]}
+              style={[styles.button, getHajiLoading && styles.buttonDisabled]}
               onPress={handleSubmit(onSubmit)}
-              disabled={isLoading || !!errors.porsiNumber}>
-              {isLoading ? (
+              disabled={getHajiLoading || !!errors.porsiNumber}>
+              {getHajiLoading ? (
                 <ActivityIndicator color="#FFF" />
               ) : (
                 <View style={styles.buttonContent}>
                   <Text style={styles.buttonText}>Cek</Text>
-                  <Icon name="arrow-right" size={20} color="#FFF" />
+                  <Ionicons name="send-sharp" size={20} color="#FFF" />
                 </View>
               )}
             </TouchableOpacity>
@@ -200,7 +218,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
             />
           )}
           keyExtractor={item => item.id}
-          contentContainerStyle={styles.listContentContainer}
           keyboardShouldPersistTaps="handled"
         />
       </SafeAreaView>
@@ -248,29 +265,12 @@ const styles = StyleSheet.create({
     borderColor: '#777',
   },
   buttonContent: {flexDirection: 'row', alignItems: 'center'},
-  buttonText: {color: '#FFF', fontSize: 14},
+  buttonText: {color: '#FFF', fontSize: 14, marginRight: 8, fontWeight: 'bold'},
   errorMessage: {color: 'red', marginTop: 4, fontSize: 12},
   errorBanner: {
     textAlign: 'center',
     color: 'red',
     marginVertical: 8,
-  },
-  listContentContainer: {
-    paddingHorizontal: 16,
-    paddingVertical: 8,
-  },
-  loadMoreButton: {
-    backgroundColor: '#28a745',
-    padding: 12,
-    borderRadius: 4,
-    marginVertical: 8,
-    alignSelf: 'center',
-    minWidth: 120,
-    alignItems: 'center',
-  },
-  loadMoreText: {
-    color: '#FFF',
-    fontSize: 16,
   },
 });
 
