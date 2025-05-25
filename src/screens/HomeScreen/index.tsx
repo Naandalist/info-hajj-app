@@ -50,8 +50,8 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
-  const [getHajiInfo, {isLoading: getHajiLoading}] =
-    useGetEstimasiKeberangkatanMutation();
+  const [appLoading, setAppLoading] = React.useState(false);
+  const [getHajiInfo] = useGetEstimasiKeberangkatanMutation();
 
   const {
     control,
@@ -64,6 +64,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
   });
 
   const onSubmit: SubmitHandler<PorsiFormInputs> = async ({porsiNumber}) => {
+    setAppLoading(true);
     const serverAvailability = await checkServer();
 
     if (!serverAvailability) {
@@ -72,6 +73,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         text1: 'SERVER SEDANG PEMELIHARAAN',
         text2: 'Silahkan coba beberapa saat lagi nanti.',
       });
+      setAppLoading(false);
       return;
     }
 
@@ -91,6 +93,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           text1: 'NOMOR PORSI TIDAK DITEMUKAN',
           text2: 'Gunakan nomor porsi yang valid.',
         });
+      })
+      .finally(() => {
+        Keyboard.dismiss();
+        clearErrors('porsiNumber');
+        setAppLoading(false);
       });
   };
 
@@ -179,10 +186,10 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               />
             </View>
             <TouchableOpacity
-              style={[styles.button, getHajiLoading && styles.buttonDisabled]}
+              style={[styles.button, appLoading && styles.buttonDisabled]}
               onPress={handleSubmit(onSubmit)}
-              disabled={getHajiLoading || !!errors.porsiNumber}>
-              {getHajiLoading ? (
+              disabled={appLoading || !!errors.porsiNumber}>
+              {appLoading ? (
                 <ActivityIndicator color="#FFF" />
               ) : (
                 <View style={styles.buttonContent}>
