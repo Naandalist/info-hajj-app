@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  StatusBar,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator,
+} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -7,8 +14,10 @@ import {
   type DetailInfoJemaahHaji as DetailInfoJemaahHajiType,
   type DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType,
   useGetInfoJemaahHajiMutation,
+  type DetailInfoPelunasanHaji as DetailInfoPelunasanHajiType,
+  useGetInfoPelunasanHajiMutation,
 } from '@/services';
-import {DetailInfoJemaahHaji} from '@/components';
+import {DetailEstimasiKeberangkatan, DetailInfoJemaahHaji} from '@/components';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -22,6 +31,9 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
   const [infoJemaahHaji, setInfoJemaahHaji] =
     useState<DetailInfoJemaahHajiType | null>(null);
 
+  const [infoPelunasanHaji, setInfoPelunasanHaji] =
+    useState<DetailInfoPelunasanHajiType | null>(null);
+
   const [getInfoJemaahHaji, {isLoading: isLoadingInfoJemaahHaji}] =
     useGetInfoJemaahHajiMutation();
 
@@ -31,6 +43,8 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
       .then(response => {
         if (response?.data?.data?.length > 0) {
           setInfoJemaahHaji(response.data.data[0]);
+        } else {
+          setInfoJemaahHaji(null);
         }
       })
       .catch(() => {
@@ -38,8 +52,53 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
       });
   }, [detail.kd_porsi, getInfoJemaahHaji]);
 
+  const [getInfoPelunasanHaji, {isLoading: isLoadingInfoPelunasanHaji}] =
+    useGetInfoPelunasanHajiMutation();
+
+  useEffect(() => {
+    getInfoPelunasanHaji({a: detail.kd_porsi})
+      .unwrap()
+      .then(response => {
+        if (response?.data?.Data?.length > 0) {
+          setInfoPelunasanHaji(response.data.Data[0]);
+        } else {
+          setInfoPelunasanHaji(null);
+        }
+      })
+      .catch(() => {
+        setInfoPelunasanHaji(null);
+      });
+  }, [detail.kd_porsi, getInfoPelunasanHaji]);
+
   const handleGoBack = () => {
     navigation.goBack();
+  };
+
+  const contentDetail = () => {
+    if (isLoadingInfoJemaahHaji || isLoadingInfoPelunasanHaji) {
+      return <ActivityIndicator size="large" color="#badc58" />;
+    }
+    if (
+      !isLoadingInfoJemaahHaji &&
+      !isLoadingInfoPelunasanHaji &&
+      infoJemaahHaji
+    ) {
+      return <DetailInfoJemaahHaji detail={infoJemaahHaji} />;
+    }
+    if (
+      infoJemaahHaji === null &&
+      !isLoadingInfoJemaahHaji &&
+      !isLoadingInfoPelunasanHaji &&
+      infoPelunasanHaji
+    ) {
+      return (
+        <DetailEstimasiKeberangkatan
+          detail={detail}
+          infoPelunasanHaji={infoPelunasanHaji}
+        />
+      );
+    }
+    return <ActivityIndicator size="large" color="#0000ff" />;
   };
 
   return (
@@ -49,8 +108,19 @@ const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
         <FeatherIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
       <View style={styles.spacer} />
-      {infoJemaahHaji && <DetailInfoJemaahHaji detail={infoJemaahHaji} />}
-      {/* <DetailEstimasiKeberangkatan detail={detail} /> */}
+      {/* {isLoadingInfoJemaahHaji && (
+        <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
+          <FeatherIcon name="loader" size={24} color="#000" />
+        </View>
+      )} */}
+      {/* {infoJemaahHaji && <DetailInfoJemaahHaji detail={infoJemaahHaji} />} */}
+      {/* {infoPelunasanHaji && (
+        <DetailEstimasiKeberangkatan
+          detail={detail}
+          infoPelunasanHaji={infoPelunasanHaji}
+        />
+      )} */}
+      {contentDetail()}
     </SafeAreaView>
   );
 };
