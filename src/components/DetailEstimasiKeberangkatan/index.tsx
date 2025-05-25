@@ -1,7 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
-import type {DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType} from '@/services'; // Assuming this path is correct relative to this new file's location
-
+import type {
+  DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType,
+  DetailInfoPelunasanHaji as DetailInfoPelunasanHajiType,
+} from '@/services';
 interface InfoItemProps {
   label: string;
   value: string | number;
@@ -25,11 +27,12 @@ const SectionTitle: React.FC<SectionTitleProps> = ({title}) => (
 
 interface DetailEstimasiKeberangkatanProps {
   detail: DetailEstimasiKeberangkatanType;
+  infoPelunasanHaji?: DetailInfoPelunasanHajiType | null;
 }
 
 const DetailEstimasiKeberangkatan: React.FC<
   DetailEstimasiKeberangkatanProps
-> = ({detail}) => {
+> = ({detail, infoPelunasanHaji}) => {
   const profileImageUrl = `https://ui-avatars.com/api/?name=${encodeURIComponent(
     detail.nama,
   )}&size=256&background=E53E3E&font-size=0.33&color=fff`;
@@ -37,6 +40,15 @@ const DetailEstimasiKeberangkatan: React.FC<
   const statusColor = detail.status_bayar === 'Lunas' ? '#38A169' : '#E53E3E';
   const statusBackgroundColor =
     detail.status_bayar === 'Lunas' ? '#C6F6D5' : '#FED7D7';
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat('id-ID', {
+      style: 'currency',
+      currency: 'IDR',
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(amount);
+  };
 
   return (
     <ScrollView
@@ -92,6 +104,71 @@ const DetailEstimasiKeberangkatan: React.FC<
           />
         </View>
       </View>
+      <View style={styles.divider} />
+
+      {infoPelunasanHaji && (
+        <React.Fragment>
+          {/* Informasi Pelunasan Section */}
+          <View style={styles.section}>
+            <SectionTitle title="Informasi Pelunasan" />
+            <View style={styles.infoRow}>
+              <InfoItem
+                label="Tahun Pelunasan"
+                value={infoPelunasanHaji.tahun_pelunasan}
+                flex={1}
+              />
+              <InfoItem
+                label="Tahap Pelunasan"
+                value={infoPelunasanHaji.tahap_pelunasan}
+                flex={1}
+              />
+            </View>
+            <View style={styles.infoRow}>
+              <InfoItem
+                label="Status Cadangan"
+                value={infoPelunasanHaji.status_cadangan}
+                flex={1}
+              />
+              <InfoItem
+                label="Status Istitha'ah"
+                value={infoPelunasanHaji.status_istithaah}
+                flex={1}
+              />
+            </View>
+            <InfoItem
+              label="Biaya Perjalanan Ibadah Haji (BIPIH)"
+              value={formatCurrency(infoPelunasanHaji.biaya_bipih)}
+            />
+            <InfoItem
+              label="Setoran Awal"
+              value={formatCurrency(infoPelunasanHaji.setoran_awal)}
+            />
+            <InfoItem
+              label="Nilai Manfaat"
+              value={formatCurrency(infoPelunasanHaji.nilai_manfaat)}
+            />
+            <InfoItem
+              label="Jumlah Sisa Pelunasan"
+              value={formatCurrency(infoPelunasanHaji.jumlah_pelunasan)}
+            />
+          </View>
+          <View style={styles.divider} />
+
+          {/* Informasi Bank & Embarkasi Section */}
+          <View style={styles.section}>
+            <SectionTitle title="Informasi Bank & Embarkasi" />
+            <InfoItem
+              label="Bank Penerima Setoran"
+              value={infoPelunasanHaji.bank}
+            />
+            <InfoItem
+              label="Nomor Rekening"
+              value={infoPelunasanHaji.nomor_rekening || '-'} // Show '-' if empty
+            />
+            <InfoItem label="Embarkasi" value={infoPelunasanHaji.embarkasi} />
+          </View>
+        </React.Fragment>
+      )}
     </ScrollView>
   );
 };
