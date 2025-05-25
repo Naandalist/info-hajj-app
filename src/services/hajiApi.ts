@@ -59,6 +59,31 @@ export interface ResponseInfoJemaahHaji {
   };
 }
 
+export interface DetailInfoPelunasanHaji {
+  tahun_pelunasan: string;
+  nomor_porsi: string;
+  nama: string;
+  tahap_pelunasan: string;
+  status_cadangan: string;
+  bank: string;
+  nomor_rekening: string;
+  embarkasi: string;
+  biaya_bipih: number;
+  setoran_awal: number;
+  nilai_manfaat: number;
+  jumlah_pelunasan: number;
+  status_istithaah: string;
+  status_pelunasan: string;
+}
+
+export interface ResponseInfoPelunasanHaji {
+  data: {
+    ResponseCode: string;
+    ResposeMessage: string;
+    Data: DetailInfoPelunasanHaji[];
+  };
+}
+
 export const hajiApi = createApi({
   reducerPath: 'hajiApi',
   baseQuery: fetchBaseQuery({
@@ -88,10 +113,21 @@ export const hajiApi = createApi({
         body,
       }),
     }),
+    getInfoPelunasanHaji: builder.mutation<
+      ResponseInfoPelunasanHaji,
+      {a: string}
+    >({
+      query: body => ({
+        url: '/25/e2ec5ab4-3780-11ea-a6c7-db8e7efd6687',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
 export const {
   useGetEstimasiKeberangkatanMutation,
   useGetInfoJemaahHajiMutation,
+  useGetInfoPelunasanHajiMutation,
 } = hajiApi;
