@@ -4,7 +4,7 @@ import type {
   DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType,
   DetailInfoPelunasanHaji as DetailInfoPelunasanHajiType,
 } from '@/services';
-import {isStatusLunas} from '@/utils';
+import {formatCurrency, isStatusLunas} from '@/utils';
 interface InfoItemProps {
   label: string;
   value: string | number;
@@ -41,15 +41,6 @@ const DetailEstimasiKeberangkatan: React.FC<
   const status = isStatusLunas(infoPelunasanHaji?.status_pelunasan || '');
   const statusColor = status ? '#38A169' : '#E53E3E';
   const statusBackgroundColor = status ? '#C6F6D5' : '#FED7D7';
-
-  const formatCurrency = (amount: number) => {
-    return new Intl.NumberFormat('id-ID', {
-      style: 'currency',
-      currency: 'IDR',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(amount);
-  };
 
   return (
     <ScrollView
