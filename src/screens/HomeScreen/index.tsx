@@ -139,7 +139,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         <View style={styles.headerInfoContainer}>
           <Text style={styles.title}>INFO HAJI</Text>
           <Text style={styles.subtitle}>
-            Cek status keberangkatan, biaya pelunasan, dan info detail haji
+            Cek estimasi keberangkatan, biaya pelunasan, dan info lengkap haji
             Anda!
           </Text>
           <View style={styles.inputRow}>
@@ -243,8 +243,13 @@ const styles = StyleSheet.create({
     paddingTop: 48,
     paddingBottom: 24,
   },
-  title: {fontSize: 36, color: '#000'},
-  subtitle: {fontSize: 18, color: '#333', marginBottom: 24},
+  title: {fontSize: 36, color: '#000', fontFamily: 'PlusJakartaSans-ExtraBold'},
+  subtitle: {
+    fontSize: 18,
+    color: '#333',
+    marginBottom: 24,
+    fontFamily: 'PlusJakartaSans-Bold',
+  },
   inputRow: {flexDirection: 'row', alignItems: 'center'},
   inputContainer: {
     flex: 1,
