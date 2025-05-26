@@ -156,7 +156,7 @@ const DetailEstimasiKeberangkatan: React.FC<
             <SectionTitle title="Informasi Bank & Embarkasi" />
             <InfoItem
               label="Bank Penerima Setoran"
-              value={infoPelunasanHaji.bank}
+              value={infoPelunasanHaji.bank || '-'}
             />
             {infoPelunasanHaji.nomor_rekening &&
               infoPelunasanHaji.nomor_rekening !== '-' && (
@@ -165,7 +165,10 @@ const DetailEstimasiKeberangkatan: React.FC<
                   value={infoPelunasanHaji.nomor_rekening || '-'} // Show '-' if empty
                 />
               )}
-            <InfoItem label="Embarkasi" value={infoPelunasanHaji.embarkasi} />
+            <InfoItem
+              label="Embarkasi"
+              value={infoPelunasanHaji.embarkasi || '-'}
+            />
           </View>
         </React.Fragment>
       )}
