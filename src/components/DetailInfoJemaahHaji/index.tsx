@@ -439,7 +439,7 @@ const styles = StyleSheet.create({
   infoValue: {
     fontSize: 15,
     color: '#2D3748',
-    fontFamily: AppFonts.boldItalic,
+    fontFamily: AppFonts.bold,
   },
   multiLineValue: {
     lineHeight: 20,
