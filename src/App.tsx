@@ -5,6 +5,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {HomeScreen, DetailScreen} from '@/screens';
 import Toast from 'react-native-toast-message';
+import RNBootSplash from 'react-native-bootsplash';
 
 import Reactotron from './reactotronConfig';
 
@@ -24,24 +25,27 @@ export type RootStackParamList = {
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
-const App = () => (
-  <Provider store={store}>
-    <NavigationContainer>
-      <Stack.Navigator initialRouteName="Home">
-        <Stack.Screen
-          name="Home"
-          component={HomeScreen}
-          options={{headerShown: false}}
-        />
-        <Stack.Screen
-          name="Details"
-          component={DetailScreen}
-          options={{headerShown: false, animation: 'slide_from_right'}}
-        />
-      </Stack.Navigator>
-      <Toast />
-    </NavigationContainer>
-  </Provider>
-);
+const App = () => {
+  const onReady = React.useCallback(() => RNBootSplash.hide({fade: true}), []);
+  return (
+    <Provider store={store}>
+      <NavigationContainer onReady={onReady}>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{headerShown: false}}
+          />
+          <Stack.Screen
+            name="Details"
+            component={DetailScreen}
+            options={{headerShown: false, animation: 'slide_from_right'}}
+          />
+        </Stack.Navigator>
+        <Toast />
+      </NavigationContainer>
+    </Provider>
+  );
+};
 
 export default App;
