@@ -10,7 +10,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import Reactotron from './reactotronConfig';
 import {DetailEstimasiKeberangkatan} from './services';
 
-// Optional: override console.log to also log to Reactotron
+// override console.log to also log to Reactotron
 if (__DEV__) {
   const consoleLog = console.log;
   console.log = (...args) => {
