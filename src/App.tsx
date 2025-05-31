@@ -45,7 +45,12 @@ const App = () => {
           <Stack.Screen
             name="DetailInfo"
             component={DetailInfoScreen}
-            options={{headerShown: false, animation: 'slide_from_right'}}
+            options={{
+              headerShown: true,
+              headerShadowVisible: false,
+              title: '',
+              animation: 'slide_from_right',
+            }}
           />
           <Stack.Screen
             name="DetailNews"
