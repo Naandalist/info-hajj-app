@@ -1,6 +1,7 @@
+import React from 'react';
+import {AppColors, AppFonts} from '@/constants';
 import {DetailEstimasiKeberangkatan, DetailInfoPelunasanHaji} from '@/services';
 import {formatCurrency, isStatusLunas} from '@/utils';
-import React from 'react';
 import {View, Text, StyleSheet, Image, ScrollView} from 'react-native';
 
 interface JemaahHajiDetail {
@@ -372,41 +373,44 @@ const styles = StyleSheet.create({
   profileImage: {
     width: 100,
     height: 100,
-    backgroundColor: '#FFF',
+    backgroundColor: AppColors.white,
     marginBottom: 16,
     marginHorizontal: 16,
     borderWidth: 3,
-    borderColor: '#000',
+    borderColor: 'grey',
     borderStyle: 'dashed',
   },
   profileName: {
     fontSize: 22,
-    fontWeight: '600',
-    color: '#1A202C',
+    fontFamily: AppFonts.bold,
+    color: AppColors.textDark,
     textAlign: 'center',
     marginBottom: 6,
   },
   profileGroup: {
     fontSize: 16,
-    color: '#4A5568',
+    color: AppColors.textDark,
     textAlign: 'center',
     marginBottom: 4,
+    fontFamily: AppFonts.medium,
   },
   profilePorsi: {
     fontSize: 16,
-    color: '#4A5568',
+    color: AppColors.textDark,
     marginBottom: 4,
     textAlign: 'center',
+    fontFamily: AppFonts.medium,
   },
   profileInfo: {
     fontSize: 16,
-    color: '#4A5568',
+    color: AppColors.textDark,
     textAlign: 'center',
+    fontFamily: AppFonts.medium,
   },
   profileStatusBayarBase: {
     marginTop: 8,
     fontSize: 16,
-    fontWeight: 'bold',
+    fontFamily: AppFonts.extraBold,
     paddingVertical: 4,
     paddingHorizontal: 10,
     borderRadius: 0,
@@ -419,8 +423,8 @@ const styles = StyleSheet.create({
   },
   sectionTitle: {
     fontSize: 18,
-    fontWeight: '600',
-    color: '#2D3748',
+    fontFamily: AppFonts.bold,
+    color: AppColors.textDark,
     marginBottom: 16,
   },
   infoItemContainer: {
@@ -430,11 +434,12 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#718096',
     marginBottom: 4,
-    fontWeight: '500',
+    fontFamily: AppFonts.medium,
   },
   infoValue: {
     fontSize: 15,
     color: '#2D3748',
+    fontFamily: AppFonts.boldItalic,
   },
   multiLineValue: {
     lineHeight: 20,
