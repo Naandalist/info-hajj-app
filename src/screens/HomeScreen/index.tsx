@@ -61,8 +61,9 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     handleSubmit,
     formState: {errors},
     clearErrors,
+    reset,
   } = useForm<PorsiFormInputs>({
-    defaultValues: {porsiNumber: '0600124009'},
+    defaultValues: {porsiNumber: ''},
     mode: 'onSubmit',
   });
 
@@ -87,6 +88,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       .then(response => {
         const {ResponseCode, Data} = response.data;
         if (ResponseCode === '00' && Data.length > 0) {
+          reset({porsiNumber: ''});
           navigation.navigate('DetailInfo', {detail: Data[0]});
         } else {
           // Toast.show({type: 'error', text1: ResposeMessage});
