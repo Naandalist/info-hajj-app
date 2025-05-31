@@ -70,7 +70,7 @@ const DetailEstimasiKeberangkatan: React.FC<
       <View style={styles.divider} />
       {/* Flight Details Section - Only shows available data */}
       <View style={styles.section}>
-        <SectionTitle title="Detail Perkiraan Keberangkatan" />
+        <SectionTitle title="Perkiraan Keberangkatan" />
         <View style={styles.infoRow}>
           <InfoItem
             label="Tahun Berangkat (Masehi)"
@@ -145,7 +145,7 @@ const DetailEstimasiKeberangkatan: React.FC<
               value={formatCurrency(infoPelunasanHaji.nilai_manfaat)}
             />
             <InfoItem
-              label="Jumlah Sisa Pelunasan"
+              label="Jumlah Pelunasan"
               value={formatCurrency(infoPelunasanHaji.jumlah_pelunasan)}
             />
           </View>
