@@ -4,7 +4,8 @@ declare module 'react-native-config' {
     HAJI_HOST: string;
     HAJI_API_KEY: string;
     HAJI_ENDPOINT_INFO: string;
-    NEWS_API_URL: string;
+    NEWS_API_ARTICLES: string;
+    NEWS_API_ARTICLE: string;
     NEWS_API_TOKEN: string;
     NEWS_HOST: string;
     NEWS_USER_AGENT: string;

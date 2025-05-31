@@ -88,7 +88,7 @@ const delay = (ms: number) =>
   new Promise<void>(resolve => setTimeout(resolve, ms));
 
 const rawBaseQuery = fetchBaseQuery({
-  baseUrl: Config.NEWS_API_URL, // e.g. ""
+  baseUrl: Config.NEWS_API_ARTICLES,
   prepareHeaders: headers => {
     headers.set('Authorization', `Bearer ${Config.NEWS_API_TOKEN}`);
     headers.set('host', Config.NEWS_HOST);
@@ -117,7 +117,7 @@ export const newsApi = createApi({
       transformResponse: (response: NewsArticle[]) => response,
     }),
     getArticleById: builder.query<ArticleDetail, number>({
-      query: id => `https://app-api.nu.or.id/api/articles/${id}`,
+      query: id => `${Config.NEWS_API_ARTICLE}/api/articles/${id}`,
       transformResponse: (response: ArticleDetail) => response,
     }),
   }),
