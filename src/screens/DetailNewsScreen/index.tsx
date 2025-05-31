@@ -8,30 +8,31 @@ import {
   useWindowDimensions,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {NativeStackScreenProps} from '@react-navigation/native-stack';
+import {useRoute} from '@react-navigation/native';
+import type {RouteProp} from '@react-navigation/native';
 import RenderHTML from 'react-native-render-html';
 import {useGetArticleByIdQuery} from '@/services/newsApi';
 import {removeBrTags} from '@/utils';
+import type {RootStackParamList} from '../../App';
+import {DetailNewsSkeleton} from '@/components';
 import {AppColors, AppDimens, AppFonts} from '@/constants';
-import DetailNewsSkeleton from '@/components/DetailNewsSkeleton';
 
-type RootStackParamList = {
-  Details: {id: number};
-};
+type DetailNewsRouteProp = RouteProp<RootStackParamList, 'DetailNews'>;
 
-type Props = NativeStackScreenProps<RootStackParamList, 'Details'>;
-
-const DetailNewsScreen: React.FC<Props> = ({route}) => {
+const DetailNewsScreen: React.FC = () => {
+  const route = useRoute<DetailNewsRouteProp>();
   const {id} = route.params;
-  const {data: detail, isLoading} = useGetArticleByIdQuery(id);
+
+  const {data: detail, isLoading, isError} = useGetArticleByIdQuery(Number(id));
+
   const {width} = useWindowDimensions();
 
-  if (isLoading || !detail) {
+  if (isLoading || !detail || isError) {
     return <DetailNewsSkeleton />;
   }
 
   return (
-    <SafeAreaView style={styles.container} edges={['left', 'right', 'bottom']}>
+    <SafeAreaView style={styles.container} edges={['bottom', 'left', 'right']}>
       <ScrollView>
         {detail.image?.full && (
           <Image source={{uri: detail.image.full}} style={styles.image} />
@@ -40,7 +41,6 @@ const DetailNewsScreen: React.FC<Props> = ({route}) => {
           <Text style={styles.caption}>{detail.image.caption}</Text>
         )}
         <View style={styles.header}>
-          {detail.prefix && <Text style={styles.prefix}>{detail.prefix}</Text>}
           <Text style={styles.title}>{detail.title}</Text>
           <View style={styles.meta}>
             <Text style={[styles.category]}>{detail.category.name}</Text>
@@ -56,16 +56,16 @@ const DetailNewsScreen: React.FC<Props> = ({route}) => {
             source={{html: removeBrTags(detail.content)}}
             tagsStyles={{
               p: {
-                marginBottom: AppDimens.marginMD,
+                marginBottom: 12,
                 lineHeight: 20,
                 color: AppColors.textLight,
-                fontFamily: AppFonts.medium,
+                fontFamily: AppFonts.regular,
               },
             }}
           />
         </View>
         {detail.tags.length > 0 && (
-          <View style={styles.tagsContainer}>
+          <View style={styles.tags}>
             {detail.tags.map(tag => (
               <View key={tag.id} style={styles.tag}>
                 <Text style={styles.tagText}>#{tag.name}</Text>
@@ -80,69 +80,53 @@ const DetailNewsScreen: React.FC<Props> = ({route}) => {
 
 const styles = StyleSheet.create({
   container: {flex: 1, backgroundColor: AppColors.white},
-  center: {flex: 1, justifyContent: 'center', alignItems: 'center'},
-  errorText: {color: AppColors.red, fontSize: 16},
+  center: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   image: {width: '100%', height: 200},
   caption: {
     fontSize: 12,
     color: AppColors.textLight,
-    marginHorizontal: AppDimens.paddingLG,
+    marginHorizontal: AppDimens.marginLG,
     marginTop: 8,
-    fontFamily: AppFonts.mediumItalic,
+    fontFamily: AppFonts.italic,
   },
   header: {padding: AppDimens.paddingLG},
-  prefix: {
-    fontSize: 14,
-    color: AppColors.secondaryGreen,
-    fontWeight: '700',
-    marginBottom: 4,
-  },
   title: {
     fontSize: 24,
     color: AppColors.textDark,
-    marginBottom: 8,
     fontFamily: AppFonts.extraBold,
+    marginBottom: 8,
   },
   meta: {flexDirection: 'row', alignItems: 'center'},
   category: {
     fontSize: 12,
-    fontFamily: AppFonts.extraBold,
     color: AppColors.textDark,
+    fontFamily: AppFonts.bold,
   },
   dot: {marginHorizontal: 4, color: AppColors.textLight},
-  date: {
-    fontSize: 12,
-    color: AppColors.textLight,
-    fontFamily: AppFonts.regular,
-  },
-  content: {
-    paddingHorizontal: AppDimens.paddingLG,
-    marginBottom: AppDimens.marginMD,
-  },
-  tagsContainer: {
+  date: {fontSize: 12, color: AppColors.textLight},
+  content: {paddingHorizontal: AppDimens.paddingLG, marginBottom: 24},
+  tags: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     paddingHorizontal: AppDimens.paddingLG,
-    marginBottom: AppDimens.marginMD,
+    marginBottom: 24,
   },
   tag: {
-    backgroundColor: AppColors.darkGreen,
+    backgroundColor: '#EEE',
     borderRadius: 4,
     paddingHorizontal: AppDimens.paddingSM,
-    paddingVertical: AppDimens.paddingSM,
-    marginRight: AppDimens.marginSM,
-    marginBottom: AppDimens.marginSM,
+    paddingVertical: 4,
+    marginRight: 8,
+    marginBottom: 8,
   },
-  tagText: {fontSize: 10, color: AppColors.textDark},
-  relatedContainer: {
-    paddingHorizontal: AppDimens.paddingLG,
-    paddingBottom: AppDimens.marginMD,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: '700',
+  tagText: {
+    fontSize: 10,
     color: AppColors.textDark,
-    marginBottom: AppDimens.marginSM,
+    fontFamily: AppFonts.regular,
   },
 });
 
