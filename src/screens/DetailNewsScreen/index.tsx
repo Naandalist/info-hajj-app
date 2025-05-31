@@ -64,15 +64,6 @@ const DetailNewsScreen: React.FC = () => {
             }}
           />
         </View>
-        {detail.tags.length > 0 && (
-          <View style={styles.tags}>
-            {detail.tags.map(tag => (
-              <View key={tag.id} style={styles.tag}>
-                <Text style={styles.tagText}>#{tag.name}</Text>
-              </View>
-            ))}
-          </View>
-        )}
       </ScrollView>
     </SafeAreaView>
   );
@@ -91,7 +82,7 @@ const styles = StyleSheet.create({
     color: AppColors.textLight,
     marginHorizontal: AppDimens.marginLG,
     marginTop: 8,
-    fontFamily: AppFonts.italic,
+    fontFamily: AppFonts.mediumItalic,
   },
   header: {padding: AppDimens.paddingLG},
   title: {
@@ -109,25 +100,6 @@ const styles = StyleSheet.create({
   dot: {marginHorizontal: 4, color: AppColors.textLight},
   date: {fontSize: 12, color: AppColors.textLight},
   content: {paddingHorizontal: AppDimens.paddingLG, marginBottom: 24},
-  tags: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    paddingHorizontal: AppDimens.paddingLG,
-    marginBottom: 24,
-  },
-  tag: {
-    backgroundColor: '#EEE',
-    borderRadius: 4,
-    paddingHorizontal: AppDimens.paddingSM,
-    paddingVertical: 4,
-    marginRight: 8,
-    marginBottom: 8,
-  },
-  tagText: {
-    fontSize: 10,
-    color: AppColors.textDark,
-    fontFamily: AppFonts.regular,
-  },
 });
 
 export default DetailNewsScreen;
