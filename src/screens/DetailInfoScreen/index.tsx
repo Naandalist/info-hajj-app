@@ -1,8 +1,7 @@
 import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
+import {View, StyleSheet, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 import {
   type DetailInfoJemaahHaji as DetailInfoJemaahHajiType,
   type DetailEstimasiKeberangkatan as DetailEstimasiKeberangkatanType,
@@ -27,10 +26,7 @@ type DetailInfoScreenProps = NativeStackScreenProps<
   'DetailInfo'
 >;
 
-const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
-  route,
-  navigation,
-}) => {
+const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({route}) => {
   const {detail} = route.params;
   const [infoJemaahHaji, setInfoJemaahHaji] =
     useState<DetailInfoJemaahHajiType | null>(null);
@@ -74,10 +70,6 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
       });
   }, [detail.kd_porsi, getInfoPelunasanHaji]);
 
-  const handleGoBack = () => {
-    navigation.goBack();
-  };
-
   const contentDetail = () => {
     if (isLoadingInfoJemaahHaji || isLoadingInfoPelunasanHaji) {
       return <DetailInfoSkeleton />;
@@ -115,9 +107,7 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
   return (
     <SafeAreaView style={styles.safeArea}>
       <StatusBar barStyle="dark-content" />
-      <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
-        <FeatherIcon name="arrow-left" size={24} color="#000" />
-      </TouchableOpacity>
+
       <View style={styles.spacer} />
       {contentDetail()}
     </SafeAreaView>
