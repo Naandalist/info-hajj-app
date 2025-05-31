@@ -23,7 +23,6 @@ import {
   useGetArticlesQuery,
   useGetEstimasiKeberangkatanMutation,
 } from '@/services';
-// import Toast from 'react-native-toast-message';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import ToastManager, {Toast} from 'toastify-react-native';
@@ -88,7 +87,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       .then(response => {
         const {ResponseCode, Data} = response.data;
         if (ResponseCode === '00' && Data.length > 0) {
-          navigation.navigate('Details', {detail: Data[0]});
+          navigation.navigate('DetailInfo', {detail: Data[0]});
         } else {
           // Toast.show({type: 'error', text1: ResposeMessage});
           Toast.show({
@@ -241,7 +240,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
                 date={item.date}
                 imageUrl={item.imageUrl}
                 categoryColor={item.categoryColor}
-                onPress={() => console.log('News tapped:', item.id)}
+                onPress={() => navigation.navigate('DetailNews', {id: item.id})}
               />
             )}
             keyExtractor={item => item.id}
@@ -250,7 +249,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
         </View>
       </SafeAreaView>
 
-      {/* FULL-SCREEN LOADING OVERLAY */}
+      {/* LOADING OVERLAY ENTIRE SCREEN */}
       {appLoading && (
         <View style={styles.loadingOverlay} pointerEvents="auto">
           <CircleFade size={48} color={AppColors.white} />

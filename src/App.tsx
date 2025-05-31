@@ -3,11 +3,12 @@ import {Provider} from 'react-redux';
 import {store} from './store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen, DetailScreen} from '@/screens';
+import {HomeScreen, DetailInfoScreen, DetailNewsScreen} from '@/screens';
 import Toast from 'react-native-toast-message';
 import RNBootSplash from 'react-native-bootsplash';
 
 import Reactotron from './reactotronConfig';
+import {DetailEstimasiKeberangkatan} from './services';
 
 // Optional: override console.log to also log to Reactotron
 if (__DEV__) {
@@ -20,7 +21,12 @@ if (__DEV__) {
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: {detail: import('./services/hajiApi').DetailEstimasiKeberangkatan};
+  DetailInfo: {
+    detail: DetailEstimasiKeberangkatan;
+  };
+  DetailNews: {
+    id: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -37,9 +43,14 @@ const App = () => {
             options={{headerShown: false}}
           />
           <Stack.Screen
-            name="Details"
-            component={DetailScreen}
+            name="DetailInfo"
+            component={DetailInfoScreen}
             options={{headerShown: false, animation: 'slide_from_right'}}
+          />
+          <Stack.Screen
+            name="DetailNews"
+            component={DetailNewsScreen}
+            options={{headerShown: true, title: '', animation: 'fade'}}
           />
         </Stack.Navigator>
         <Toast />

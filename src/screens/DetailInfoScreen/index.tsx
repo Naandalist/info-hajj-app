@@ -20,12 +20,18 @@ import {DetailEstimasiKeberangkatan, DetailInfoJemaahHaji} from '@/components';
 
 export type RootStackParamList = {
   Home: undefined;
-  Details: {detail: DetailEstimasiKeberangkatanType};
+  DetailInfo: {detail: DetailEstimasiKeberangkatanType};
 };
 
-type DetailScreenProps = NativeStackScreenProps<RootStackParamList, 'Details'>;
+type DetailInfoScreenProps = NativeStackScreenProps<
+  RootStackParamList,
+  'DetailInfo'
+>;
 
-const DetailScreen: React.FC<DetailScreenProps> = ({route, navigation}) => {
+const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
+  route,
+  navigation,
+}) => {
   const {detail} = route.params;
   const [infoJemaahHaji, setInfoJemaahHaji] =
     useState<DetailInfoJemaahHajiType | null>(null);
@@ -131,4 +137,4 @@ const styles = StyleSheet.create({
   spacer: {backgroundColor: 'rgba(236, 240, 241,0.8)', height: 10},
 });
 
-export default DetailScreen;
+export default DetailInfoScreen;
