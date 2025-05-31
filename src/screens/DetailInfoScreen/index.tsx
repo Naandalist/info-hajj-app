@@ -1,11 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  StyleSheet,
-  StatusBar,
-  TouchableOpacity,
-  ActivityIndicator,
-} from 'react-native';
+import {View, StyleSheet, StatusBar, TouchableOpacity} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -16,7 +10,12 @@ import {
   type DetailInfoPelunasanHaji as DetailInfoPelunasanHajiType,
   useGetInfoPelunasanHajiMutation,
 } from '@/services';
-import {DetailEstimasiKeberangkatan, DetailInfoJemaahHaji} from '@/components';
+import {
+  DetailEstimasiKeberangkatan,
+  DetailInfoJemaahHaji,
+  DetailInfoSkeleton,
+} from '@/components';
+import {AppColors, AppDimens} from '@/constants';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -81,7 +80,7 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
 
   const contentDetail = () => {
     if (isLoadingInfoJemaahHaji || isLoadingInfoPelunasanHaji) {
-      return <ActivityIndicator size="large" color="#badc58" />;
+      return <DetailInfoSkeleton />;
     }
     if (
       !isLoadingInfoJemaahHaji &&
@@ -110,12 +109,12 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
         />
       );
     }
-    return <ActivityIndicator size="large" color="#0000ff" />;
+    return <DetailInfoSkeleton />;
   };
 
   return (
     <SafeAreaView style={styles.safeArea}>
-      <StatusBar barStyle="dark-content" backgroundColor="#FFFFFF" />
+      <StatusBar barStyle="dark-content" />
       <TouchableOpacity style={styles.backButton} onPress={handleGoBack}>
         <FeatherIcon name="arrow-left" size={24} color="#000" />
       </TouchableOpacity>
@@ -128,13 +127,16 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({
 const styles = StyleSheet.create({
   safeArea: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: AppColors.white,
   },
   backButton: {
-    paddingVertical: 10,
-    marginHorizontal: 16,
+    paddingVertical: AppDimens.paddingMD,
+    marginHorizontal: AppDimens.marginLG,
   },
-  spacer: {backgroundColor: 'rgba(236, 240, 241,0.8)', height: 10},
+  spacer: {
+    backgroundColor: 'rgba(236, 240, 241,0.8)',
+    height: AppDimens.marginMD,
+  },
 });
 
 export default DetailInfoScreen;
