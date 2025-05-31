@@ -103,7 +103,7 @@ const delayedBaseQuery: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await rawBaseQuery(args, api, extraOptions);
-  await delay(0);
+  await delay(1000);
   return result;
 };
 
