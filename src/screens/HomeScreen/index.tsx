@@ -21,6 +21,7 @@ import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
 import {checkServer} from '@/utils/checkServer';
+import {AppColors, AppDimens, AppFonts, AppStrings} from '@/constants';
 import {
   useGetArticlesQuery,
   useGetEstimasiKeberangkatanMutation,
@@ -43,10 +44,10 @@ interface NewsDataItem {
 }
 
 const CATEGORY_COLORS: Record<string, string> = {
-  internasional: '#007bff',
-  nasional: '#28a745',
-  syariah: '#6f42c1',
-  khutbah: '#fd7e14',
+  internasional: AppColors.categoryInternational,
+  nasional: AppColors.categoryNational,
+  syariah: AppColors.categorySyariah,
+  khutbah: AppColors.categoryKhutbah,
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
@@ -70,8 +71,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     if (!serverAvailability) {
       Toast.show({
         type: 'error',
-        text1: 'SERVER SEDANG PEMELIHARAAN',
-        text2: 'Silahkan coba beberapa saat lagi nanti.',
+        text1: AppStrings.SERVER_MAINTENANCE,
+        text2: AppStrings.SERVER_MAINTENANCE_DETAIL,
       });
       setAppLoading(false);
       return;
@@ -90,8 +91,8 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
       .catch(() => {
         Toast.show({
           type: 'error',
-          text1: 'NOMOR PORSI TIDAK DITEMUKAN',
-          text2: 'Gunakan nomor porsi yang valid.',
+          text1: AppStrings.NO_PORTION_NOT_FOUND,
+          text2: AppStrings.NO_PORTION_DETAIL,
         });
       })
       .finally(() => {
@@ -125,7 +126,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               description: item.title,
               date: formatDate(item.published_at),
               imageUrl: item.image?.thumbnail,
-              categoryColor: CATEGORY_COLORS[key] ?? '#6c757d',
+              categoryColor: CATEGORY_COLORS[key] ?? AppColors.categoryDefault,
             };
           })
         : [],
@@ -134,14 +135,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
   return (
     <Pressable style={styles.page} onPress={handleScreenTap}>
-      <StatusBar barStyle="dark-content" backgroundColor="#badc58" />
-      <SafeAreaView style={styles.page}>
+      <StatusBar barStyle="dark-content" />
+      <SafeAreaView style={styles.page} edges={['left', 'right', 'top']}>
         <View style={styles.headerInfoContainer}>
-          <Text style={styles.title}>INFO HAJI</Text>
-          <Text style={styles.subtitle}>
-            Cek estimasi keberangkatan, biaya pelunasan, dan info lengkap haji
-            Anda!
-          </Text>
+          <Text style={styles.title}>{AppStrings.APP_TITLE}</Text>
+          <Text style={styles.subtitle}>{AppStrings.APP_SUBTITLE}</Text>
           <View style={styles.inputRow}>
             <View
               style={[
@@ -150,32 +148,32 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               ]}>
               <FeatherIcon
                 name="search"
-                size={20}
-                color="#777"
+                size={AppDimens.iconMD}
+                color={AppColors.textLight}
                 style={styles.icon}
               />
               <Controller
                 control={control}
                 name="porsiNumber"
                 rules={{
-                  required: 'Nomor porsi wajib diisi.',
+                  required: AppStrings.PORTION_REQUIRED,
                   minLength: {
                     value: 10,
-                    message: 'Nomor porsi harus 10 digit.',
+                    message: AppStrings.PORTION_LENGTH,
                   },
                   maxLength: {
                     value: 10,
-                    message: 'Nomor porsi harus 10 digit.',
+                    message: AppStrings.PORTION_LENGTH,
                   },
                   pattern: {
                     value: /^[0-9]+$/,
-                    message: 'Nomor porsi hanya boleh berisi angka.',
+                    message: AppStrings.PORTION_NUMBER_ONLY,
                   },
                 }}
                 render={({field: {onChange, onBlur, value}}) => (
                   <TextInput
                     style={styles.input}
-                    placeholder="Masukkan nomor porsi haji"
+                    placeholder={AppStrings.INPUT_PLACEHOLDER}
                     keyboardType="numeric"
                     onBlur={onBlur}
                     onChangeText={onChange}
@@ -190,11 +188,17 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               onPress={handleSubmit(onSubmit)}
               disabled={appLoading || !!errors.porsiNumber}>
               {appLoading ? (
-                <ActivityIndicator color="#FFF" />
+                <ActivityIndicator color={AppColors.white} />
               ) : (
                 <View style={styles.buttonContent}>
-                  <Text style={styles.buttonText}>Cek</Text>
-                  <Ionicons name="send-sharp" size={20} color="#FFF" />
+                  <Text style={styles.buttonText}>
+                    {AppStrings.BUTTON_TEXT}
+                  </Text>
+                  <Ionicons
+                    name="send-sharp"
+                    size={AppDimens.iconMD}
+                    color={AppColors.white}
+                  />
                 </View>
               )}
             </TouchableOpacity>
@@ -206,86 +210,107 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           )}
         </View>
 
-        {newsLoading && (
-          <>
-            <NewsCardSkeleton />
-            <NewsCardSkeleton />
-            <NewsCardSkeleton />
-            <NewsCardSkeleton />
-          </>
-        )}
-
-        <FlatList
-          data={newsData}
-          renderItem={({item}) => (
-            <NewsCard
-              category={item.category}
-              description={item.description}
-              date={item.date}
-              imageUrl={item.imageUrl}
-              categoryColor={item.categoryColor}
-              onPress={() => console.log('News tapped:', item.id)}
-            />
+        <View style={styles.bodyContainer}>
+          {newsLoading && (
+            <>
+              <NewsCardSkeleton />
+              <NewsCardSkeleton />
+              <NewsCardSkeleton />
+              <NewsCardSkeleton />
+            </>
           )}
-          keyExtractor={item => item.id}
-          keyboardShouldPersistTaps="handled"
-        />
+
+          <FlatList
+            data={newsData}
+            renderItem={({item}) => (
+              <NewsCard
+                category={item.category}
+                description={item.description}
+                date={item.date}
+                imageUrl={item.imageUrl}
+                categoryColor={item.categoryColor}
+                onPress={() => console.log('News tapped:', item.id)}
+              />
+            )}
+            keyExtractor={item => item.id}
+            keyboardShouldPersistTaps="handled"
+          />
+        </View>
       </SafeAreaView>
     </Pressable>
   );
 };
 
 const styles = StyleSheet.create({
-  page: {flex: 1, backgroundColor: '#FFF'},
+  page: {flex: 1, backgroundColor: AppColors.primaryGreen},
   headerInfoContainer: {
-    backgroundColor: '#badc58',
-    paddingHorizontal: 16,
-    paddingTop: 48,
-    paddingBottom: 24,
+    backgroundColor: AppColors.primaryGreen,
+    paddingHorizontal: AppDimens.paddingXL,
+    paddingTop: AppDimens.paddingXXL,
+    paddingBottom: AppDimens.paddingXXL,
   },
-  title: {fontSize: 36, color: '#000', fontFamily: 'PlusJakartaSans-ExtraBold'},
+  title: {
+    fontSize: AppDimens.fontXL,
+    color: AppColors.textDark,
+    fontFamily: AppFonts.extraBold,
+  },
   subtitle: {
-    fontSize: 18,
-    color: '#333',
-    marginBottom: 24,
-    fontFamily: 'PlusJakartaSans-Bold',
+    fontSize: AppDimens.fontLG,
+    color: AppColors.textMedium,
+    marginBottom: AppDimens.marginXXL,
+    fontFamily: AppFonts.bold,
   },
   inputRow: {flexDirection: 'row', alignItems: 'center'},
   inputContainer: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#FFF',
-    paddingHorizontal: 12,
-    height: 48,
-    marginRight: 8,
-    borderWidth: 1,
-    borderColor: '#000',
+    backgroundColor: AppColors.white,
+    paddingHorizontal: AppDimens.paddingLG,
+    height: AppDimens.inputH,
+    marginRight: AppDimens.marginMD,
+    borderWidth: AppDimens.borderThin,
+    borderColor: AppColors.borderDark,
   },
-  inputError: {borderColor: 'red'},
-  icon: {marginRight: 8},
-  input: {flex: 1, fontSize: 14, color: '#000'},
+  inputError: {borderColor: AppColors.red},
+  icon: {marginRight: AppDimens.marginMD},
+  input: {flex: 1, fontSize: AppDimens.fontMD, color: AppColors.textDark},
   button: {
-    backgroundColor: '#6ab04c',
-    borderWidth: 1,
-    borderColor: '#000',
-    paddingHorizontal: 16,
-    height: 48,
-    width: 80,
+    backgroundColor: AppColors.secondaryGreen,
+    borderWidth: AppDimens.borderThin,
+    borderColor: AppColors.borderDark,
+    paddingHorizontal: AppDimens.paddingXL,
+    height: AppDimens.btnH,
+    width: AppDimens.btnW,
     justifyContent: 'center',
     alignItems: 'center',
   },
   buttonDisabled: {
-    backgroundColor: '#a8d08d',
-    borderColor: '#777',
+    backgroundColor: AppColors.darkGreen,
+    borderColor: AppColors.borderLight,
   },
   buttonContent: {flexDirection: 'row', alignItems: 'center'},
-  buttonText: {color: '#FFF', fontSize: 14, marginRight: 8, fontWeight: 'bold'},
-  errorMessage: {color: 'red', marginTop: 4, fontSize: 12},
+  buttonText: {
+    color: AppColors.white,
+    fontSize: AppDimens.fontMD,
+    marginRight: AppDimens.marginMD,
+    fontWeight: 'bold',
+  },
+  errorMessage: {
+    color: AppColors.red,
+    marginTop: AppDimens.marginSM,
+    fontSize: AppDimens.fontSM,
+  },
   errorBanner: {
     textAlign: 'center',
-    color: 'red',
-    marginVertical: 8,
+    color: AppColors.red,
+    marginVertical: AppDimens.marginMD,
+  },
+  bodyContainer: {
+    flex: 1,
+    backgroundColor: AppColors.white,
+    paddingTop: AppDimens.paddingXL,
+    paddingBottom: AppDimens.paddingXXL,
   },
 });
 
