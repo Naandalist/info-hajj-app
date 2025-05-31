@@ -1,3 +1,4 @@
+import {AppFonts} from '@/constants';
 import React from 'react';
 import {
   View,
@@ -91,17 +92,17 @@ const cardStyles = StyleSheet.create({
   categoryText: {
     color: '#FFFFFF',
     fontSize: 10,
-    fontWeight: 'bold',
+    fontFamily: AppFonts.bold,
   },
   mainTitleText: {
     fontSize: 13,
-    fontWeight: 'bold',
+    fontFamily: AppFonts.bold,
     color: '#555555',
     marginBottom: 4,
   },
   descriptionText: {
     fontSize: 16,
-    fontWeight: '600',
+    fontFamily: AppFonts.extraBold,
     color: '#333333',
     marginBottom: 8,
     lineHeight: 22,
