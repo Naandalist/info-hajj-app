@@ -2,7 +2,6 @@ import React, {useCallback, useMemo} from 'react';
 import {
   View,
   TextInput,
-  StyleSheet,
   Text,
   ActivityIndicator,
   TouchableOpacity,
@@ -11,21 +10,25 @@ import {
   Keyboard,
   StatusBar,
 } from 'react-native';
+import {CircleFade} from 'react-native-animated-spinkit';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
-import Toast from 'react-native-toast-message';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import Ionicons from 'react-native-vector-icons/Ionicons';
 import {RootStackParamList} from '../../App';
 import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
 import {checkServer} from '@/utils/checkServer';
-import {AppColors, AppDimens, AppFonts, AppStrings} from '@/constants';
+import {AppColors, AppDimens, AppStrings} from '@/constants';
 import {
   useGetArticlesQuery,
   useGetEstimasiKeberangkatanMutation,
 } from '@/services';
+// import Toast from 'react-native-toast-message';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import Ionicons from 'react-native-vector-icons/Ionicons';
+import ToastManager, {Toast} from 'toastify-react-native';
+
+import styles from './styles';
 
 type Props = NativeStackScreenProps<RootStackParamList, 'Home'>;
 
@@ -70,9 +73,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
     if (!serverAvailability) {
       Toast.show({
-        type: 'error',
         text1: AppStrings.SERVER_MAINTENANCE,
         text2: AppStrings.SERVER_MAINTENANCE_DETAIL,
+        position: 'top',
+        type: 'error',
+        icon: <></>,
       });
       setAppLoading(false);
       return;
@@ -81,18 +86,26 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     getHajiInfo({no_porsi: porsiNumber})
       .unwrap()
       .then(response => {
-        const {ResponseCode, ResposeMessage, Data} = response.data;
+        const {ResponseCode, Data} = response.data;
         if (ResponseCode === '00' && Data.length > 0) {
           navigation.navigate('Details', {detail: Data[0]});
         } else {
-          Toast.show({type: 'error', text1: ResposeMessage});
+          // Toast.show({type: 'error', text1: ResposeMessage});
+          Toast.show({
+            text1: AppStrings.NO_PORTION_NOT_FOUND,
+            position: 'top',
+            type: 'error',
+            icon: <></>,
+          });
         }
       })
       .catch(() => {
         Toast.show({
-          type: 'error',
           text1: AppStrings.NO_PORTION_NOT_FOUND,
           text2: AppStrings.NO_PORTION_DETAIL,
+          position: 'top',
+          type: 'success',
+          icon: <></>,
         });
       })
       .finally(() => {
@@ -107,12 +120,10 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     clearErrors('porsiNumber');
   }, [clearErrors]);
 
-  const {
-    data: fetchedNews,
-    isLoading: newsLoading,
-    // isError: newsError,
-    // refetch: refetchNews,
-  } = useGetArticlesQuery({q: 'haji', page: 1});
+  const {data: fetchedNews, isLoading: newsLoading} = useGetArticlesQuery({
+    q: 'haji',
+    page: 1,
+  });
 
   const newsData: NewsDataItem[] = useMemo(
     () =>
@@ -137,6 +148,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
     <Pressable style={styles.page} onPress={handleScreenTap}>
       <StatusBar barStyle="dark-content" />
       <SafeAreaView style={styles.page} edges={['left', 'right', 'top']}>
+        {/* HEADER */}
         <View style={styles.headerInfoContainer}>
           <Text style={styles.title}>{AppStrings.APP_TITLE}</Text>
           <Text style={styles.subtitle}>{AppStrings.APP_SUBTITLE}</Text>
@@ -210,6 +222,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           )}
         </View>
 
+        {/* BODY */}
         <View style={styles.bodyContainer}>
           {newsLoading && (
             <>
@@ -219,7 +232,6 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
               <NewsCardSkeleton />
             </>
           )}
-
           <FlatList
             data={newsData}
             renderItem={({item}) => (
@@ -237,81 +249,16 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           />
         </View>
       </SafeAreaView>
+
+      {/* FULL-SCREEN LOADING OVERLAY */}
+      {appLoading && (
+        <View style={styles.loadingOverlay} pointerEvents="auto">
+          <CircleFade size={48} color={AppColors.white} />
+        </View>
+      )}
+      <ToastManager showProgressBar={true} showCloseIcon={false} />
     </Pressable>
   );
 };
-
-const styles = StyleSheet.create({
-  page: {flex: 1, backgroundColor: AppColors.primaryGreen},
-  headerInfoContainer: {
-    backgroundColor: AppColors.primaryGreen,
-    paddingHorizontal: AppDimens.paddingXL,
-    paddingTop: AppDimens.paddingXXL,
-    paddingBottom: AppDimens.paddingXXL,
-  },
-  title: {
-    fontSize: AppDimens.fontXL,
-    color: AppColors.textDark,
-    fontFamily: AppFonts.extraBold,
-  },
-  subtitle: {
-    fontSize: AppDimens.fontLG,
-    color: AppColors.textMedium,
-    marginBottom: AppDimens.marginXXL,
-    fontFamily: AppFonts.bold,
-  },
-  inputRow: {flexDirection: 'row', alignItems: 'center'},
-  inputContainer: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: AppColors.white,
-    paddingHorizontal: AppDimens.paddingLG,
-    height: AppDimens.inputH,
-    marginRight: AppDimens.marginMD,
-    borderWidth: AppDimens.borderThin,
-    borderColor: AppColors.borderDark,
-  },
-  inputError: {borderColor: AppColors.red},
-  icon: {marginRight: AppDimens.marginMD},
-  input: {flex: 1, fontSize: AppDimens.fontMD, color: AppColors.textDark},
-  button: {
-    backgroundColor: AppColors.secondaryGreen,
-    borderWidth: AppDimens.borderThin,
-    borderColor: AppColors.borderDark,
-    paddingHorizontal: AppDimens.paddingXL,
-    height: AppDimens.btnH,
-    width: AppDimens.btnW,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  buttonDisabled: {
-    backgroundColor: AppColors.darkGreen,
-    borderColor: AppColors.borderLight,
-  },
-  buttonContent: {flexDirection: 'row', alignItems: 'center'},
-  buttonText: {
-    color: AppColors.white,
-    fontSize: AppDimens.fontMD,
-    marginRight: AppDimens.marginMD,
-    fontWeight: 'bold',
-  },
-  errorMessage: {
-    color: AppColors.red,
-    marginTop: AppDimens.marginSM,
-    fontSize: AppDimens.fontSM,
-  },
-  errorBanner: {
-    textAlign: 'center',
-    color: AppColors.red,
-    marginVertical: AppDimens.marginMD,
-  },
-  bodyContainer: {
-    flex: 1,
-    backgroundColor: AppColors.white,
-    paddingTop: AppDimens.paddingXL,
-    paddingBottom: AppDimens.paddingXXL,
-  },
-});
 
 export default HomeScreen;

@@ -5839,6 +5839,7 @@ __metadata:
     react: "npm:19.0.0"
     react-hook-form: "npm:^7.56.4"
     react-native: "npm:0.79.2"
+    react-native-animated-spinkit: "npm:^1.5.2"
     react-native-bootsplash: "npm:^6.3.8"
     react-native-config: "npm:^1.5.5"
     react-native-linear-gradient: "npm:^2.8.3"
@@ -5851,6 +5852,7 @@ __metadata:
     react-test-renderer: "npm:19.0.0"
     reactotron-react-native: "npm:^5.1.13"
     reactotron-redux: "npm:^3.2.0"
+    toastify-react-native: "npm:^7.2.0"
     typescript: "npm:5.0.4"
   languageName: unknown
   linkType: soft
@@ -8466,6 +8468,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-animated-spinkit@npm:^1.5.2":
+  version: 1.5.2
+  resolution: "react-native-animated-spinkit@npm:1.5.2"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/5534e7111f31c560822481204149d7a08fa2bac10d4fc2391fd569d90635e4bc7e4327a9ce87aeda42faad764fb85fcc9c5ebcd594e904b62ea9bd4ccc6e2761
+  languageName: node
+  linkType: hard
+
 "react-native-bootsplash@npm:^6.3.8":
   version: 6.3.8
   resolution: "react-native-bootsplash@npm:6.3.8"
@@ -8570,7 +8582,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-vector-icons@npm:^10.2.0":
+"react-native-vector-icons@npm:*, react-native-vector-icons@npm:^10.2.0":
   version: 10.2.0
   resolution: "react-native-vector-icons@npm:10.2.0"
   dependencies:
@@ -9848,6 +9860,18 @@ __metadata:
   dependencies:
     is-number: "npm:^7.0.0"
   checksum: 10c0/487988b0a19c654ff3e1961b87f471702e708fa8a8dd02a298ef16da7206692e8552a0250e8b3e8759270f62e9d8314616f6da274734d3b558b1fc7b7724e892
+  languageName: node
+  linkType: hard
+
+"toastify-react-native@npm:^7.2.0":
+  version: 7.2.0
+  resolution: "toastify-react-native@npm:7.2.0"
+  dependencies:
+    react-native-vector-icons: "npm:*"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/469393c19db00bbe3a1132969390a9a43519e0f226bdf573c7b79b7c35359e64bd010b46786a63dda4b2546a6efb9db81d6e7d700c453e424211777d3c539a41
   languageName: node
   linkType: hard
 
