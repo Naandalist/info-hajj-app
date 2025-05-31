@@ -187,6 +187,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
                   <TextInput
                     style={styles.input}
                     placeholder={AppStrings.INPUT_PLACEHOLDER}
+                    placeholderTextColor={AppColors.textLight}
                     keyboardType="numeric"
                     onBlur={onBlur}
                     onChangeText={onChange}
