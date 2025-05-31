@@ -18,7 +18,7 @@ class MainActivity : ReactActivity() {
   override fun onCreate(savedInstanceState: Bundle?) {
     // keep the native splash up until JS is ready
     RNBootSplash.init(this, R.style.BootTheme)
-    super.onCreate(savedInstanceState)
+    super.onCreate(null)
   }
 
   /**
