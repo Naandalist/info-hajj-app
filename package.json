@@ -19,6 +19,7 @@
     "react-native": "0.79.2",
     "react-native-animated-spinkit": "^1.5.2",
     "react-native-bootsplash": "^6.3.8",
+    "react-native-capture-protection": "^2.0.7",
     "react-native-config": "^1.5.5",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-render-html": "^6.3.4",

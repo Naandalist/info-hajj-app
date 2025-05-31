@@ -6003,6 +6003,7 @@ __metadata:
     react-native: "npm:0.79.2"
     react-native-animated-spinkit: "npm:^1.5.2"
     react-native-bootsplash: "npm:^6.3.8"
+    react-native-capture-protection: "npm:^2.0.7"
     react-native-config: "npm:^1.5.5"
     react-native-linear-gradient: "npm:^2.8.3"
     react-native-render-html: "npm:^6.3.4"
@@ -8679,6 +8680,16 @@ __metadata:
   bin:
     react-native-bootsplash: cli.js
   checksum: 10c0/63c60d0e13a9599cf7812c21befc281f12394f690d9ceff10cdd2b08c698714a4ff386be99a4cd63c67a6158210422fb14681cdde5cdf8c67d49da822e2b77f2
+  languageName: node
+  linkType: hard
+
+"react-native-capture-protection@npm:^2.0.7":
+  version: 2.0.7
+  resolution: "react-native-capture-protection@npm:2.0.7"
+  peerDependencies:
+    react: "*"
+    react-native: "*"
+  checksum: 10c0/b85da396a8dd49811cb2fe997f65ed4e1e2fcaad5e15e3ccebb1bc156a269e8e721100f1aa79ae17cf6563653ee7833265169250ff1ef1c682e0509c1fb00332
   languageName: node
   linkType: hard
 

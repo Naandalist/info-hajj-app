@@ -15,6 +15,7 @@ import {
   DetailInfoSkeleton,
 } from '@/components';
 import {AppColors, AppDimens} from '@/constants';
+import {CaptureProtection} from 'react-native-capture-protection';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -28,6 +29,11 @@ type DetailInfoScreenProps = NativeStackScreenProps<
 
 const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({route}) => {
   const {detail} = route.params;
+
+  useEffect(() => {
+    CaptureProtection.prevent();
+  }, []);
+
   const [infoJemaahHaji, setInfoJemaahHaji] =
     useState<DetailInfoJemaahHajiType | null>(null);
 
