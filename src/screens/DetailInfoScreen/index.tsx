@@ -111,7 +111,7 @@ const DetailInfoScreen: React.FC<DetailInfoScreenProps> = ({route}) => {
   };
 
   return (
-    <SafeAreaView style={styles.safeArea}>
+    <SafeAreaView style={styles.safeArea} edges={['left', 'bottom', 'right']}>
       <StatusBar barStyle="dark-content" />
 
       <View style={styles.spacer} />
