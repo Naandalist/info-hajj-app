@@ -1,4 +1,4 @@
-package com.info_haji
+package com.naandalist.info_haji
 
 import android.os.Bundle
 import com.facebook.react.ReactActivity

@@ -1,4 +1,4 @@
-package com.info_haji
+package com.naandalist.info_haji
 
 import android.app.Application
 import com.facebook.react.PackageList
