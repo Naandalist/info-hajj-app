@@ -41,8 +41,8 @@ android {
     applicationId    "com.naandalist.info_haji"
     minSdkVersion    rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode      1
-    versionName      "1.0"
+    versionCode      2
+    versionName      "2.0"
     resValue "string", "build_config_package",
       applicationId
   }
