@@ -2,6 +2,7 @@
   "name": "info_haji",
   "version": "2.0.0",
   "private": true,
+  "license": "CC-BY-NC-4.0",
   "scripts": {
     "android": "react-native run-android",
     "android:release": "npx react-native run-android --tasks installRelease",
