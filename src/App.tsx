@@ -1,23 +1,18 @@
-import React from 'react';
+import React, {useCallback, useEffect} from 'react';
 import {Provider} from 'react-redux';
 import {store} from './store';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {HomeScreen, DetailInfoScreen, DetailNewsScreen} from '@/screens';
+import {
+  HomeScreen,
+  DetailInfoScreen,
+  DetailNewsScreen,
+  SecurityWarning,
+} from '@/screens';
 import Toast from 'react-native-toast-message';
 import RNBootSplash from 'react-native-bootsplash';
-
-import Reactotron from './reactotronConfig';
 import {DetailEstimasiKeberangkatan} from './services';
-
-// override console.log to also log to Reactotron
-if (__DEV__) {
-  const consoleLog = console.log;
-  console.log = (...args) => {
-    Reactotron.log(...args);
-    consoleLog(...args);
-  };
-}
+import JailMonkey from 'jail-monkey';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -27,16 +22,41 @@ export type RootStackParamList = {
   DetailNews: {
     id: string;
   };
+  SecurityWarning: undefined;
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
-  const onReady = React.useCallback(() => RNBootSplash.hide({fade: true}), []);
+  const [isSecurityThreat, setIsSecurityThreat] = React.useState<
+    boolean | null
+  >(null);
+  const onReady = useCallback(() => RNBootSplash.hide({fade: true}), []);
+
+  useEffect(() => {
+    const checkSecurity = async () => {
+      if (!__DEV__) {
+        const isJailBroken = JailMonkey.isJailBroken();
+        const isDebuggedMode = await JailMonkey.isDebuggedMode();
+
+        setIsSecurityThreat(isJailBroken || isDebuggedMode);
+      } else {
+        setIsSecurityThreat(false);
+      }
+    };
+    checkSecurity();
+  }, []);
+
+  // Wait for security check to complete
+  if (isSecurityThreat === null) {
+    return null;
+  }
+
   return (
     <Provider store={store}>
       <NavigationContainer onReady={onReady}>
-        <Stack.Navigator initialRouteName="Home">
+        <Stack.Navigator
+          initialRouteName={isSecurityThreat ? 'SecurityWarning' : 'Home'}>
           <Stack.Screen
             name="Home"
             component={HomeScreen}
@@ -56,6 +76,14 @@ const App = () => {
             name="DetailNews"
             component={DetailNewsScreen}
             options={{headerShown: true, title: '', animation: 'fade'}}
+          />
+          <Stack.Screen
+            name="SecurityWarning"
+            component={SecurityWarning}
+            options={{
+              headerShown: false,
+              gestureEnabled: false,
+            }}
           />
         </Stack.Navigator>
         <Toast />
