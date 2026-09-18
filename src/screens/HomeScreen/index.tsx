@@ -17,7 +17,7 @@ import {RootStackParamList} from '../../App';
 import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
-import {checkServer} from '@/utils/checkServer';
+// import {checkServer} from '@/utils/checkServer';
 import {AppColors, AppDimens, AppStrings} from '@/constants';
 import {
   useGetArticlesQuery,
@@ -69,19 +69,19 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
   const onSubmit: SubmitHandler<PorsiFormInputs> = async ({porsiNumber}) => {
     setAppLoading(true);
-    const serverAvailability = await checkServer();
+    // const serverAvailability = await checkServer();
 
-    if (!serverAvailability) {
-      Toast.show({
-        text1: AppStrings.SERVER_MAINTENANCE,
-        text2: AppStrings.SERVER_MAINTENANCE_DETAIL,
-        position: 'top',
-        type: 'error',
-        icon: <></>,
-      });
-      setAppLoading(false);
-      return;
-    }
+    // if (!serverAvailability) {
+    //   Toast.show({
+    //     text1: AppStrings.SERVER_MAINTENANCE,
+    //     text2: AppStrings.SERVER_MAINTENANCE_DETAIL,
+    //     position: 'top',
+    //     type: 'error',
+    //     icon: <></>,
+    //   });
+    //   setAppLoading(false);
+    //   return;
+    // }
 
     getHajiInfo({no_porsi: porsiNumber})
       .unwrap()
