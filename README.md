@@ -78,6 +78,9 @@ yarn android:release
 - `yarn start` - Start Metro bundler
 - `yarn android` - Run on Android device/emulator
 - `yarn ios` - Run on iOS device/simulator
+- `yarn android:release` - Install the Android release build
+- `yarn build:apk` - Build a signed release APK
+- `yarn build:aab` - Build a signed release AAB (Play Store)
 - `yarn test` - Run Jest tests
 - `yarn lint` - Run ESLint
 
@@ -87,9 +90,10 @@ yarn android:release
 ### Android
 
 1. Ensure you have the signing keystore configured
-2. Run:
+2. Build:
 ```bash
-cd android && ./gradlew bundleRelease
+yarn build:apk   # android/app/build/outputs/apk/release/app-release.apk
+yarn build:aab   # android/app/build/outputs/bundle/release/app-release.aab
 ```
 
 ### iOS
