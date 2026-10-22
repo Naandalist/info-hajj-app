@@ -81,3 +81,7 @@ yarn-error.log
 
 # Local Graphify index and visualizations
 /graphify-out/
+
+# Astro landing
+website/dist/
+website/.astro/

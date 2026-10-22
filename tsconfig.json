@@ -16,6 +16,6 @@
     "src/types" // Your existing include for types
     // You might also want to include other specific files or patterns if necessary,
     // e.g., "index.js" if it's at the root.
-  ]
-  // "exclude" is typically inherited (e.g., "node_modules")
+  ],
+  "exclude": ["**/node_modules", "**/Pods", "website"]
 }

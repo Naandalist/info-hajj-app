@@ -1,0 +1,101 @@
+---
+import { getImage } from "astro:assets";
+import AppHero from "@components/sections/AppHero";
+import FAQ from "@components/sections/FAQ";
+import Features from "@components/sections/Features";
+import Screenshots from "@components/sections/Screenshots";
+import SocialLinks from "@components/sections/SocialLinks";
+import Lightbox from "@components/ui/Lightbox";
+import Layout from "@layouts/Layout.astro";
+import { siteConfig } from "../config";
+import { desktopAssets, phoneAssets } from "../config/screenshots";
+import appIcon from "../assets/infohaji-icon.webp";
+
+const {
+	title,
+	description,
+	features,
+	faqs,
+	storeLinks,
+	socialLinks,
+} = siteConfig;
+
+const screenshotThumbs = {
+	android: await Promise.all(
+		phoneAssets.map(async (src) => (await getImage({ src, width: 780, format: "webp", quality: 70 })).src),
+	),
+	desktop: await Promise.all(
+		desktopAssets.map(async (src) => (await getImage({ src, width: 1280, format: "webp", quality: 70 })).src),
+	),
+};
+const screenshotFull = {
+	android: await Promise.all(
+		phoneAssets.map(async (src) => (await getImage({ src, width: 1080, format: "webp", quality: 75 })).src),
+	),
+	desktop: await Promise.all(
+		desktopAssets.map(async (src) => (await getImage({ src, width: 1920, format: "webp", quality: 75 })).src),
+	),
+};
+const logoImage = await getImage({ src: appIcon, width: 384, format: "webp", quality: 80 });
+const logo = { type: "image" as const, src: logoImage.src };
+const seoTitle = "Info Haji: Cek Nomor Porsi";
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "MobileApplication",
+  name: "Info Haji: Cek Nomor Porsi",
+  description,
+  url: Astro.site!.href,
+  image: new URL("/infohaji-icon.webp", Astro.site).href,
+  operatingSystem: "Android",
+  applicationCategory: "ReferenceApplication",
+  inLanguage: "id",
+  downloadUrl: storeLinks.google,
+  offers: { "@type": "Offer", price: "0", priceCurrency: "IDR" },
+};
+---
+
+<Layout title={seoTitle} description={description} structuredData={structuredData}>
+  <main class="min-h-screen max-w-5xl mx-auto px-4 py-8">
+    <AppHero title={title} description={description} storeLinks={storeLinks} logo={logo} />
+    
+    <div class="mb-16">
+      <Screenshots images={screenshotThumbs} client:load />
+    </div>
+
+    <Features items={features} />
+    <FAQ items={faqs} client:visible />
+    <SocialLinks items={socialLinks} />
+  </main>
+</Layout>
+
+<Lightbox images={screenshotFull} client:load />
+
+<style is:global>
+  .screenshots-scroll {
+    scroll-behavior: smooth;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+  
+  .screenshots-scroll::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scroll-progress {
+    width: var(--scroll-width, 0%);
+    transition: width 0.1s ease-out;
+  }
+
+  .store-button {
+    backdrop-filter: blur(8px);
+  }
+
+  .store-button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 20px -4px rgba(255, 255, 255, 0.05);
+  }
+
+  .store-button:active {
+    transform: translateY(0);
+  }
+</style>

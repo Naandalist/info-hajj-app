@@ -1,11 +1,22 @@
 # Info Haji
 
-[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/Naandalist/info-hajj-app)
+[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/Naandalist/info-hajj-app)
 [![React Native](https://img.shields.io/badge/React%20Native-0.79-61DAFB.svg)](https://reactnative.dev)
-[![Node.js Version](https://img.shields.io/badge/node-%3E%3D18-brightgreen.svg)](https://nodejs.org)
+[![Astro](https://img.shields.io/github/package-json/dependency-version/Naandalist/info-hajj-app/astro?filename=website%2Fpackage.json&logo=astro&logoColor=white&color=FF5D01)](https://astro.build)
+[![Website](https://img.shields.io/github/actions/workflow/status/Naandalist/info-hajj-app/pages.yml?branch=main&label=website)](https://github.com/Naandalist/info-hajj-app/actions/workflows/pages.yml)
+[![Google Play](https://img.shields.io/badge/Google_Play-Info_Haji-3DDC84?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.naandalist.info_haji)
 [![License: CC BY-NC 4.0](https://img.shields.io/badge/License-CC%20BY--NC%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by-nc/4.0/)
 
 A React Native mobile application that provides information for Indonesian Hajj pilgrims, including departure schedules, pilgrim details, payment status, and official news from Media Nasional.
+
+This repository holds the Android app and its landing page.
+
+| Path | What it is | Stack |
+| --- | --- | --- |
+| Repo root | App (`com.naandalist.info_haji`) | React Native, TypeScript |
+| [`website/`](./website) | Landing at [infohaji.naandalist.com](https://infohaji.naandalist.com) | Astro, React, Tailwind |
+
+Play: [Info Haji on Google Play](https://play.google.com/store/apps/details?id=com.naandalist.info_haji). Contact: [dev@naandalist.com](mailto:dev@naandalist.com).
 
 ## Features
 
@@ -33,6 +44,8 @@ A React Native mobile application that provides information for Indonesian Hajj 
 - React Native development environment ([setup guide](https://reactnative.dev/docs/environment-setup))
 - For iOS: Xcode and CocoaPods
 - For Android: Android Studio and JDK
+
+The app lockfile is `yarn.lock`. `website/` is a separate npm project with its own `package-lock.json`. Metro ignores it.
 
 ## Installation
 
@@ -84,7 +97,6 @@ yarn android:release
 - `yarn test` - Run Jest tests
 - `yarn lint` - Run ESLint
 
-
 ## Building for Production
 
 ### Android
@@ -101,6 +113,32 @@ yarn build:aab   # android/app/build/outputs/bundle/release/app-release.aab
 1. Open `ios/info_haji.xcworkspace` in Xcode
 2. Configure signing certificates
 3. Archive and upload to App Store
+
+## Website
+
+Astro 5 + React + Tailwind 3. Pages: home, [privacy](https://infohaji.naandalist.com/privacy/), [terms](https://infohaji.naandalist.com/terms/). `app-ads.txt` is served from `website/public/`.
+
+```bash
+cd website
+npm install --legacy-peer-deps
+npm run dev
+npm run build
+```
+
+Output is `website/dist`. GitHub Actions (`.github/workflows/pages.yml`) deploys that folder to GitHub Pages on push to `main` when `website/**` or the workflow file changes.
+
+Privacy policy URL for Play: `https://infohaji.naandalist.com/privacy/`.
+
+Do not run `npm install` or `yarn` from the repo root when installing landing dependencies. The default cwd is the app.
+
+## Layout
+
+```
+src/               App screens, components, services
+android/           Native Android project
+ios/               Native iOS project
+website/           Public landing, privacy, terms
+```
 
 ## Contributing
 
@@ -120,5 +158,5 @@ For questions or support, please contact the development team.
 
 ---
 
-**Version**: 2.0.0  
+**Version**: 2.0.1  
 **Maintained by**: Naandalist
