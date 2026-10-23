@@ -78,6 +78,9 @@ android {
     resValue "string", "build_config_package",
       applicationId
     manifestPlaceholders.admobAppId = admobAppId
+    // Required by react-native-capture-protection product flavors.
+    // "base" = prevent capture without READ_MEDIA_IMAGES (Play policy).
+    missingDimensionStrategy "react-native-capture-protection", "base"
   }
 
   signingConfigs {
