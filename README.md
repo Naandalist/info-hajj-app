@@ -40,12 +40,12 @@ Play: [Info Haji on Google Play](https://play.google.com/store/apps/details?id=c
 ## Prerequisites
 
 - Node.js >= 18
-- Yarn 4.9.1
+- npm
 - React Native development environment ([setup guide](https://reactnative.dev/docs/environment-setup))
 - For iOS: Xcode and CocoaPods
 - For Android: Android Studio and JDK
 
-The app lockfile is `yarn.lock`. `website/` is a separate npm project with its own `package-lock.json`. Metro ignores it.
+The app lockfile is `package-lock.json`. `website/` is a separate npm project with its own `package-lock.json`. Metro ignores it.
 
 ## Installation
 
@@ -57,7 +57,7 @@ cd info-hajj-app
 
 2. Install dependencies:
 ```bash
-yarn install
+npm install
 ```
 
 3. For iOS, install pods:
@@ -71,31 +71,31 @@ cd ios && pod install && cd ..
 
 **Android**:
 ```bash
-yarn android
+npm run android
 ```
 
 **iOS**:
 ```bash
-yarn ios
+npm run ios
 ```
 
 ### Release Mode
 
 **Android**:
 ```bash
-yarn android:release
+npm run android:release
 ```
 
 ## Available Scripts
 
-- `yarn start` - Start Metro bundler
-- `yarn android` - Run on Android device/emulator
-- `yarn ios` - Run on iOS device/simulator
-- `yarn android:release` - Install the Android release build
-- `yarn build:apk` - Build a signed release APK
-- `yarn build:aab` - Build a signed release AAB (Play Store)
-- `yarn test` - Run Jest tests
-- `yarn lint` - Run ESLint
+- `npm start` - Start Metro bundler
+- `npm run android` - Run on Android device/emulator
+- `npm run ios` - Run on iOS device/simulator
+- `npm run android:release` - Install the Android release build
+- `npm run build:apk` - Build a signed release APK
+- `npm run build:aab` - Build a signed release AAB (Play Store)
+- `npm test` - Run Jest tests
+- `npm run lint` - Run ESLint
 
 ## Building for Production
 
@@ -104,8 +104,8 @@ yarn android:release
 1. Ensure you have the signing keystore configured
 2. Build:
 ```bash
-yarn build:apk   # android/app/build/outputs/apk/release/app-release.apk
-yarn build:aab   # android/app/build/outputs/bundle/release/app-release.aab
+npm run build:apk   # android/app/build/outputs/apk/release/app-release.apk
+npm run build:aab   # android/app/build/outputs/bundle/release/app-release.aab
 ```
 
 ### iOS
@@ -129,7 +129,7 @@ Output is `website/dist`. GitHub Actions (`.github/workflows/pages.yml`) deploys
 
 Privacy policy URL for Play: `https://infohaji.naandalist.com/privacy/`.
 
-Do not run `npm install` or `yarn` from the repo root when installing landing dependencies. The default cwd is the app.
+Install landing dependencies from `website/`. Do not run `npm install` from the repo root for the landing page.
 
 ## Layout
 
