@@ -11,7 +11,7 @@ export const faq: FAQ[] = [
 	},
 	{
 		question: "Apakah aplikasi ini gratis?",
-		answer: "Ya, aplikasi Info Haji dapat diunduh dan digunakan secara gratis. Semua fitur utama termasuk pengecekan nomor porsi, estimasi keberangkatan, dan akses berita haji tersedia tanpa biaya."
+		answer: "Ya, aplikasi Info Haji dapat diunduh dan digunakan secara gratis. Semua fitur utama termasuk pengecekan nomor porsi, estimasi keberangkatan, dan akses berita haji tersedia tanpa biaya. Beberapa layar menampilkan iklan dari Google AdMob untuk mendukung pengembangan aplikasi."
 	},
 	
 ];

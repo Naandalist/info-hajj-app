@@ -28,6 +28,7 @@ Info Haji adalah aplikasi informasi yang menyediakan layanan untuk calon jamaah 
 - Melakukan reverse engineering atau mencoba mengekstrak data aplikasi
 - Mengganggu atau merusak fungsi aplikasi
 - Menggunakan informasi untuk penipuan atau tujuan ilegal
+- Mengklik iklan secara berulang atau curang, menyembunyikan label iklan, atau memanipulasi permintaan/tayangan iklan
 
 ## 4. Konten dan Hak Kekayaan Intelektual
 
@@ -40,7 +41,7 @@ Kami berusaha menyajikan informasi yang akurat dan terkini, namun tidak menjamin
 ## 5. Privasi dan Keamanan Data
 
 ### 5.1 Pengumpulan Data
-Kami TIDAK mengumpulkan, menyimpan, atau memproses data pribadi pengguna. Aplikasi tidak menyimpan riwayat pencarian nomor porsi atau informasi pribadi lainnya.
+Pengembang tidak mengumpulkan, menyimpan, atau memproses data pribadi pengguna di server pengembang. Aplikasi tidak menyimpan riwayat pencarian nomor porsi atau informasi pribadi lainnya. Beberapa layar menampilkan iklan Google AdMob; data terkait iklan diproses oleh Google sesuai kebijakan privasi aplikasi.
 
 ### 5.2 Koneksi Server
 Aplikasi terhubung ke server untuk mengambil informasi haji terkini. Nomor porsi yang Anda cari dikirim ke server untuk mendapatkan informasi, namun tidak disimpan atau dicatat.
@@ -95,4 +96,4 @@ Jika Anda memiliki pertanyaan mengenai syarat dan ketentuan ini, silakan hubungi
 
 ---
 
-*Terakhir diperbarui: November 2025*
+*Terakhir diperbarui: Oktober 2026*
