@@ -14,6 +14,7 @@ import {CircleFade} from 'react-native-animated-spinkit';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
+import {NativeAdCard} from '@/ads';
 import {NewsCard, NewsCardSkeleton} from '@/components';
 import {useForm, Controller, SubmitHandler} from 'react-hook-form';
 import {formatDate} from '@/utils';
@@ -44,6 +45,8 @@ interface NewsDataItem {
   imageUrl?: string;
   categoryColor?: string;
 }
+
+const AD_EVERY = 3;
 
 const CATEGORY_COLORS: Record<string, string> = {
   internasional: AppColors.categoryInternational,
@@ -236,15 +239,22 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           )}
           <FlatList
             data={newsData}
-            renderItem={({item}) => (
-              <NewsCard
-                category={item.category}
-                description={item.description}
-                date={item.date}
-                imageUrl={item.imageUrl}
-                categoryColor={item.categoryColor}
-                onPress={() => navigation.navigate('DetailNews', {id: item.id})}
-              />
+            renderItem={({item, index}) => (
+              <View>
+                <NewsCard
+                  category={item.category}
+                  description={item.description}
+                  date={item.date}
+                  imageUrl={item.imageUrl}
+                  categoryColor={item.categoryColor}
+                  onPress={() =>
+                    navigation.navigate('DetailNews', {id: item.id})
+                  }
+                />
+                {(index + 1) % AD_EVERY === 0 ? (
+                  <NativeAdCard slotKey={`home-${item.id}`} />
+                ) : null}
+              </View>
             )}
             keyExtractor={item => item.id}
             keyboardShouldPersistTaps="handled"

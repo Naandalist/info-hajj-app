@@ -11,6 +11,9 @@ declare module 'react-native-config' {
     NEWS_USER_AGENT: string;
     HAJI_USER_AGENT: string;
     PORSI_NUMBER_TEST: string;
+    ADMOB_ANDROID_APP_ID: string;
+    ADMOB_IOS_APP_ID: string;
+    ADMOB_NATIVE_UNIT_ID: string;
   }
 
   export const Config: NativeConfig;

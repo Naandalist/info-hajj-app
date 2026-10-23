@@ -13,6 +13,7 @@ import Toast from 'react-native-toast-message';
 import RNBootSplash from 'react-native-bootsplash';
 import {DetailEstimasiKeberangkatan} from './services';
 import JailMonkey from 'jail-monkey';
+import {startMobileAds} from '@/ads';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -46,6 +47,12 @@ const App = () => {
     };
     checkSecurity();
   }, []);
+
+  useEffect(() => {
+    if (isSecurityThreat === false) {
+      startMobileAds();
+    }
+  }, [isSecurityThreat]);
 
   // Wait for security check to complete
   if (isSecurityThreat === null) {
