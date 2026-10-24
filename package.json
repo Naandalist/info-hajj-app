@@ -12,6 +12,7 @@
     "lint": "eslint .",
     "start": "react-native start",
     "test": "jest",
+    "test:api": "bash scripts/test-haji-api.sh",
     "postinstall": "patch-package"
   },
   "dependencies": {
