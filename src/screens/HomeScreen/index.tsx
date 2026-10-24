@@ -72,51 +72,43 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
 
   const onSubmit: SubmitHandler<PorsiFormInputs> = async ({porsiNumber}) => {
     setAppLoading(true);
-    // const serverAvailability = await checkServer();
-
-    // if (!serverAvailability) {
-    //   Toast.show({
-    //     text1: AppStrings.SERVER_MAINTENANCE,
-    //     text2: AppStrings.SERVER_MAINTENANCE_DETAIL,
-    //     position: 'top',
-    //     type: 'error',
-    //     icon: <></>,
-    //   });
-    //   setAppLoading(false);
-    //   return;
-    // }
-
-    getHajiInfo({no_porsi: porsiNumber})
-      .unwrap()
-      .then(response => {
-        const {ResponseCode, Data} = response.data;
-        if (ResponseCode === '00' && Data.length > 0) {
-          reset({porsiNumber: ''});
-          navigation.navigate('DetailInfo', {detail: Data[0]});
-        } else {
-          // Toast.show({type: 'error', text1: ResposeMessage});
-          Toast.show({
-            text1: AppStrings.NO_PORTION_NOT_FOUND,
-            position: 'top',
-            type: 'error',
-            icon: <></>,
-          });
-        }
-      })
-      .catch(() => {
+    try {
+      const response = await getHajiInfo({no_porsi: porsiNumber}).unwrap();
+      const {ResponseCode, Data} = response.data;
+      if (ResponseCode === '00' && Data.length > 0) {
+        reset({porsiNumber: ''});
+        navigation.navigate('DetailInfo', {detail: Data[0]});
+      } else {
         Toast.show({
           text1: AppStrings.NO_PORTION_NOT_FOUND,
-          text2: AppStrings.NO_PORTION_DETAIL,
           position: 'top',
-          type: 'success',
+          type: 'error',
           icon: <></>,
         });
-      })
-      .finally(() => {
-        Keyboard.dismiss();
-        clearErrors('porsiNumber');
-        setAppLoading(false);
+      }
+    } catch (err) {
+      const status =
+        err && typeof err === 'object' && 'status' in err
+          ? (err as {status: string | number}).status
+          : undefined;
+      const isNetworkError =
+        status === 'TIMEOUT_ERROR' || status === 'FETCH_ERROR';
+      Toast.show({
+        text1: isNetworkError
+          ? AppStrings.SERVER_MAINTENANCE
+          : AppStrings.NO_PORTION_NOT_FOUND,
+        text2: isNetworkError
+          ? AppStrings.SERVER_MAINTENANCE_DETAIL
+          : AppStrings.NO_PORTION_DETAIL,
+        position: 'top',
+        type: 'error',
+        icon: <></>,
       });
+    } finally {
+      Keyboard.dismiss();
+      clearErrors('porsiNumber');
+      setAppLoading(false);
+    }
   };
 
   const handleScreenTap = useCallback(() => {

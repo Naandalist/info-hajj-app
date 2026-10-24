@@ -84,10 +84,13 @@ export interface ResponseInfoPelunasanHaji {
   };
 }
 
+const HAJI_REQUEST_TIMEOUT_MS = 15_000;
+
 export const hajiApi = createApi({
   reducerPath: 'hajiApi',
   baseQuery: fetchBaseQuery({
     baseUrl: Config.HAJI_API_URL,
+    timeout: HAJI_REQUEST_TIMEOUT_MS,
     prepareHeaders: headers => {
       headers.set('host', Config.HAJI_HOST);
       headers.set('User-Agent', Config.HAJI_USER_AGENT);
