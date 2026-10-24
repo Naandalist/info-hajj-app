@@ -14,6 +14,7 @@ import RNBootSplash from 'react-native-bootsplash';
 import {DetailEstimasiKeberangkatan} from './services';
 import JailMonkey from 'jail-monkey';
 import {startMobileAds} from '@/ads';
+import {useNetworkActivityDevTools} from '@rozenite/network-activity-plugin';
 
 export type RootStackParamList = {
   Home: undefined;
@@ -29,6 +30,8 @@ export type RootStackParamList = {
 const Stack = createNativeStackNavigator<RootStackParamList>();
 
 const App = () => {
+  useNetworkActivityDevTools();
+
   const [isSecurityThreat, setIsSecurityThreat] = React.useState<
     boolean | null
   >(null);
