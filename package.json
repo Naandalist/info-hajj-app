@@ -5,7 +5,8 @@
   "license": "CC-BY-NC-4.0",
   "scripts": {
     "android": "react-native run-android",
-    "android:release": "npx react-native run-android --tasks installRelease",
+    "android:release": "react-native run-android --mode release --no-packager",
+    "android:release:test": "npm run build:apk && react-native run-android --mode release --no-packager --binary-path android/app/build/outputs/apk/release/app-release.apk",
     "build:apk": "cd android && ./gradlew assembleRelease",
     "build:aab": "cd android && ./gradlew bundleRelease",
     "ios": "react-native run-ios",

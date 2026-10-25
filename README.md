@@ -86,12 +86,19 @@ npm run ios
 npm run android:release
 ```
 
+For final testing with a production-like build (release variant, bundled JS, no Metro),
+build the signed APK and install that exact binary:
+```bash
+npm run android:release:test
+```
+
 ## Available Scripts
 
 - `npm start` - Start Metro bundler
 - `npm run android` - Run on Android device/emulator
 - `npm run ios` - Run on iOS device/simulator
-- `npm run android:release` - Install the Android release build
+- `npm run android:release` - Build and run the Android release variant without Metro
+- `npm run android:release:test` - Build the signed release APK, install it, and launch it (final test)
 - `npm run build:apk` - Build a signed release APK
 - `npm run build:aab` - Build a signed release AAB (Play Store)
 - `npm test` - Run Jest tests
