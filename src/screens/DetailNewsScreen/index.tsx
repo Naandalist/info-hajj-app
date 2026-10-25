@@ -14,6 +14,7 @@ import RenderHTML from 'react-native-render-html';
 import {useGetArticleByIdQuery} from '@/services/newsApi';
 import {removeBrTags} from '@/utils';
 import type {RootStackParamList} from '../../App';
+import {NativeAdCard} from '@/ads';
 import {DetailNewsSkeleton} from '@/components';
 import {AppColors, AppDimens, AppFonts} from '@/constants';
 
@@ -64,6 +65,7 @@ const DetailNewsScreen: React.FC = () => {
             }}
           />
         </View>
+        <NativeAdCard slotKey={`detail-${id}`} />
       </ScrollView>
     </SafeAreaView>
   );

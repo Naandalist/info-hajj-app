@@ -19,3 +19,13 @@ buildscript {
 }
 
 apply plugin: "com.facebook.react.rootproject"
+
+// play-services-ads 25.4.0 (via react-native-google-mobile-ads 16.5.0)
+// is compiled with Kotlin 2.3 metadata; RN 0.79 ships Kotlin 2.0.21.
+subprojects { subproject ->
+    subproject.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
+        compilerOptions {
+            freeCompilerArgs.add("-Xskip-metadata-version-check")
+        }
+    }
+}
