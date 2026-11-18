@@ -73,8 +73,8 @@ android {
     applicationId    "com.naandalist.info_haji"
     minSdkVersion    rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode      6
-    versionName      "2.2.2"
+    versionCode      7
+    versionName      "2.2.3"
     resValue "string", "build_config_package",
       applicationId
     manifestPlaceholders.admobAppId = admobAppId

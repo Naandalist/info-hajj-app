@@ -29,7 +29,7 @@ Play: [Info Haji on Google Play](https://play.google.com/store/apps/details?id=c
 
 ## Tech Stack
 
-- **Framework**: React Native 0.79.2
+- **Framework**: React Native 0.79.7
 - **Language**: TypeScript
 - **State Management**: Redux Toolkit with RTK Query
 - **Navigation**: React Navigation 7
