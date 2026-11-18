@@ -11,12 +11,10 @@ A React Native mobile application that provides information for Indonesian Hajj 
 
 This repository holds the Android app and its landing page.
 
-| Path | What it is | Stack |
-| --- | --- | --- |
-| Repo root | App (`com.naandalist.info_haji`) | React Native, TypeScript |
-| [`website/`](./website) | Landing at [infohaji.naandalist.com](https://infohaji.naandalist.com) | Astro, React, Tailwind |
-
-Play: [Info Haji on Google Play](https://play.google.com/store/apps/details?id=com.naandalist.info_haji). Contact: [dev@naandalist.com](mailto:dev@naandalist.com).
+| Path                    | What it is                                                            | Stack                    |
+| ----------------------- | --------------------------------------------------------------------- | ------------------------ |
+| Repo root               | App (`com.naandalist.info_haji`)                                      | React Native, TypeScript |
+| [`website/`](./website) | Landing at [infohaji.naandalist.com](https://infohaji.naandalist.com) | Astro, React, Tailwind   |
 
 ## Features
 
@@ -50,17 +48,20 @@ The app lockfile is `package-lock.json`. `website/` is a separate npm project wi
 ## Installation
 
 1. Clone the repository:
+
 ```bash
 git clone https://github.com/Naandalist/info-hajj-app.git
 cd info-hajj-app
 ```
 
 2. Install dependencies:
+
 ```bash
 npm install
 ```
 
 3. For iOS, install pods:
+
 ```bash
 cd ios && pod install && cd ..
 ```
@@ -70,11 +71,13 @@ cd ios && pod install && cd ..
 ### Development Mode
 
 **Android**:
+
 ```bash
 npm run android
 ```
 
 **iOS**:
+
 ```bash
 npm run ios
 ```
@@ -82,12 +85,14 @@ npm run ios
 ### Release Mode
 
 **Android**:
+
 ```bash
 npm run android:release
 ```
 
 For final testing with a production-like build (release variant, bundled JS, no Metro),
 build the signed APK and install that exact binary:
+
 ```bash
 npm run android:release:test
 ```
@@ -110,6 +115,7 @@ npm run android:release:test
 
 1. Ensure you have the signing keystore configured
 2. Build:
+
 ```bash
 npm run build:apk   # android/app/build/outputs/apk/release/app-release.apk
 npm run build:aab   # android/app/build/outputs/bundle/release/app-release.aab
