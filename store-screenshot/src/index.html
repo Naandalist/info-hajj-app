@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Info Haji Store Screenshots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=block" rel="stylesheet">
+<style>
+@font-face{font-family:PJS;font-weight:400;src:url(../../assets/fonts/PlusJakartaSans-Regular.ttf)}
+@font-face{font-family:PJS;font-weight:500;src:url(../../assets/fonts/PlusJakartaSans-Medium.ttf)}
+@font-face{font-family:PJS;font-weight:600;src:url(../../assets/fonts/PlusJakartaSans-SemiBold.ttf)}
+@font-face{font-family:PJS;font-weight:700;src:url(../../assets/fonts/PlusJakartaSans-Bold.ttf)}
+@font-face{font-family:PJS;font-weight:800;src:url(../../assets/fonts/PlusJakartaSans-ExtraBold.ttf)}
+@font-face{font-family:PJS;font-weight:500;font-style:italic;src:url(../../assets/fonts/PlusJakartaSans-MediumItalic.ttf)}
+
+:root{
+  --lime:#badc58; --green:#6ab04c; --ink:#0f2412; --deep:#163a1c; --deep2:#24552a;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#fff;width:1080px}
+.slide{position:relative;width:1080px;height:1920px;overflow:hidden;font-family:PJS,sans-serif}
+
+/* ---------- backgrounds ---------- */
+.light{background:
+  radial-gradient(900px 700px at 85% 8%, rgba(255,255,255,.55), transparent 60%),
+  linear-gradient(165deg,#d9f08a 0%,#badc58 45%,#93c847 100%);color:var(--ink)}
+.dark{background:
+  radial-gradient(900px 800px at 15% 0%, rgba(186,220,88,.28), transparent 60%),
+  linear-gradient(170deg,#1f4a24 0%,#163a1c 55%,#0e2812 100%);color:#fff}
+.pattern{position:absolute;inset:0;opacity:.09;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120' viewBox='0 0 120 120'%3E%3Cg fill='none' stroke='%23000' stroke-width='2'%3E%3Crect x='35' y='35' width='50' height='50'/%3E%3Crect x='35' y='35' width='50' height='50' transform='rotate(45 60 60)'/%3E%3Ccircle cx='60' cy='60' r='12'/%3E%3Cpath d='M0 0L35 35M120 0L85 35M0 120L35 85M120 120L85 85'/%3E%3C/g%3E%3C/svg%3E");
+  background-size:180px 180px;
+  -webkit-mask-image:linear-gradient(180deg,#000 0%,rgba(0,0,0,.6) 35%,transparent 70%)}
+.dark .pattern{filter:invert(1);opacity:.07}
+
+/* ---------- copy ---------- */
+.copy{position:absolute;left:84px;right:84px;top:118px;z-index:3}
+.pill{display:inline-flex;align-items:center;gap:12px;font-weight:800;font-size:27px;letter-spacing:.14em;
+  padding:14px 26px;border-radius:999px;background:var(--ink);color:var(--lime)}
+.dark .pill{background:var(--lime);color:var(--ink)}
+.pill i{width:12px;height:12px;border-radius:50%;background:currentColor;display:block}
+h1{font-weight:800;font-size:92px;line-height:1.04;letter-spacing:-.025em;margin-top:34px}
+.dark h1 em{color:var(--lime);font-style:normal}
+.light h1 em{font-style:normal;background:linear-gradient(transparent 62%,rgba(255,255,255,.75) 62%)}
+.sub{font-weight:500;font-size:36px;line-height:1.38;margin-top:26px;opacity:.82;max-width:880px}
+
+/* ---------- phone ---------- */
+.phone{position:absolute;left:130px;top:690px;width:820px;height:1700px;border-radius:112px;
+  background:#121512;padding:22px;z-index:2;
+  box-shadow:0 0 0 4px #3a3f3a, 0 60px 120px rgba(0,0,0,.35), 0 20px 40px rgba(0,0,0,.2)}
+.dark .phone{box-shadow:0 0 0 4px #4a514a, 0 60px 140px rgba(0,0,0,.6)}
+.phone::before{content:"";position:absolute;right:-10px;top:300px;width:8px;height:150px;border-radius:4px;background:#2b302b}
+.screen{position:relative;width:776px;height:1656px;border-radius:92px;overflow:hidden;background:#fff}
+.app{position:absolute;left:0;top:0;width:412px;height:880px;transform:scale(1.8835);transform-origin:0 0;
+  font-family:PJS,sans-serif;color:#000;overflow:hidden;background:#fff}
+.cam{position:absolute;left:50%;top:26px;width:30px;height:30px;margin-left:-15px;border-radius:50%;background:#050605;z-index:5;
+  box-shadow:inset 0 0 0 5px #1b1f1b}
+
+/* ---------- callout ---------- */
+.callout{display:none !important;position:absolute;z-index:4;background:#fff;border-radius:34px;color:#1a202c;
+  box-shadow:0 40px 80px rgba(0,0,0,.28),0 8px 20px rgba(0,0,0,.12)}
+
+/* ================= APP UI (dp units, mirrors src/) ================= */
+.sb{height:34px;display:flex;align-items:center;justify-content:space-between;padding:6px 22px 0 24px;font-family:Roboto,sans-serif;font-size:13px;color:#222}
+.sb .r{display:flex;gap:5px;align-items:center}
+.lime-bg{background:#badc58}
+.hdr{padding:24px 16px 24px}
+.hdr .t{font-weight:800;font-size:36px;line-height:44px}
+.hdr .st{font-weight:700;font-size:18px;color:#333;line-height:24px;margin-bottom:24px}
+.irow{display:flex;align-items:center}
+.inp{flex:1;display:flex;align-items:center;background:#fff;height:48px;padding:0 12px;margin-right:8px;border:1px solid #000;font-family:Roboto,sans-serif;font-size:14px}
+.inp svg{margin-right:8px}
+.caret{display:inline-block;width:1.5px;height:18px;background:#000;margin-left:1px;vertical-align:middle}
+.btn{width:80px;height:48px;background:#6ab04c;border:1px solid #000;display:flex;align-items:center;justify-content:center;gap:8px;color:#fff;font-family:Roboto,sans-serif;font-weight:700;font-size:14px}
+.body{background:#fff;padding-top:16px}
+.card{margin:0 16px 16px;border-bottom:1px dashed grey;padding-bottom:10px}
+.card .row{display:flex;padding:12px 0}
+.card .l{flex:1;margin-right:12px}
+.tag{display:inline-block;padding:4px 8px;margin-bottom:8px;color:#fff;font-size:10px;font-weight:700}
+.card .d{font-size:16px;font-weight:800;color:#333;line-height:22px;margin-bottom:8px}
+.card .dt{font-size:12px;color:#777;font-family:Roboto,sans-serif}
+.thumb{width:80px;height:80px;border-radius:6px;overflow:hidden;flex:none}
+
+.appbar{height:56px;display:flex;align-items:center;padding:0 16px;border-bottom:8px solid #eef0f2;height:64px}
+.prof{display:flex;flex-direction:column;align-items:center;padding:24px 16px}
+.av{width:100px;height:100px;margin-bottom:16px;display:flex;align-items:center;justify-content:center;color:#fff;font-family:Roboto,sans-serif;font-size:36px}
+.pn{font-size:24px;font-weight:600;color:#1a202c;margin-bottom:6px;text-align:center}
+.pg,.pp{font-size:16px;color:#4a5568;margin-bottom:4px;text-align:center}
+.badge{font-size:16px;font-weight:700;padding:4px 10px;margin-top:2px}
+.lunas{color:#38a169;background:#c6f6d5}
+.belum{color:#e53e3e;background:#fed7d7}
+.div{border-bottom:1px dashed #777;margin:0 16px}
+.sec{padding:18px 20px}
+.sec h3{font-size:20px;font-weight:600;color:#2d3748;margin-bottom:18px}
+.ir{display:flex;margin-bottom:14px}
+.ii{flex:1;margin-right:10px}
+.ii.solo{margin-bottom:10px}
+.lb{font-size:14px;color:#718096;margin-bottom:5px}
+.vl{font-size:16px;color:#2d3748;font-weight:600}
+.ro{font-family:Roboto,sans-serif}
+.ro .pn{font-weight:500}
+.ro .vl{font-weight:500}
+
+/* news detail */
+.nimg{height:200px}
+.cap{font-size:12px;color:#777;margin:8px 12px 0;font-style:italic;font-weight:500;line-height:17px}
+.nh{padding:12px}
+.nh .tt{font-size:24px;font-weight:800;line-height:31px;margin-bottom:8px}
+.meta{font-size:12px;display:flex;gap:4px;align-items:center}
+.meta b{font-weight:700}.meta span{color:#777}
+.np{padding:0 12px}
+.np p{margin-bottom:12px;line-height:20px;color:#777;font-size:14px}
+</style>
+</head>
+<body>
+
+<!-- ============ shared SVG defs ============ -->
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <symbol id="ic-wifi" viewBox="0 0 24 24"><path d="M12 20 1 8.5a16 16 0 0 1 22 0z" fill="#222"/></symbol>
+    <symbol id="ic-sig" viewBox="0 0 24 24"><path d="M22 3v19H3z" fill="#222"/></symbol>
+    <symbol id="ic-bat" viewBox="0 0 24 24"><rect x="7" y="3" width="10" height="19" rx="1.5" fill="#222"/><rect x="10" y="1.5" width="4" height="2" fill="#222"/></symbol>
+    <symbol id="ic-search" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="#555" stroke-width="2"/><path d="m16 16 5 5" stroke="#555" stroke-width="2" stroke-linecap="round"/></symbol>
+    <symbol id="ic-send" viewBox="0 0 24 24"><path d="M2 21 23 12 2 3v7l15 2-15 2z" fill="#fff"/></symbol>
+    <symbol id="ic-back" viewBox="0 0 24 24"><path d="M20 12H5m6-7-7 7 7 7" fill="none" stroke="#111" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+    <symbol id="ic-check" viewBox="0 0 24 24"><path d="m5 12.5 4.5 4.5L19 7.5" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+
+    <!-- illustrated thumbnails (no third-party photos) -->
+    <linearGradient id="g-dusk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#f6b56b"/><stop offset="1" stop-color="#f7e2b5"/></linearGradient>
+    <linearGradient id="g-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5fa8e8"/><stop offset="1" stop-color="#cfe8fb"/></linearGradient>
+    <linearGradient id="g-night" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#1c2a52"/><stop offset="1" stop-color="#4b5d95"/></linearGradient>
+    <linearGradient id="g-sand" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd3f2"/><stop offset=".6" stop-color="#e8f4fb"/><stop offset=".6" stop-color="#e9cf9c"/><stop offset="1" stop-color="#d6b273"/></linearGradient>
+
+    <symbol id="il-kaaba" viewBox="0 0 80 80">
+      <rect width="80" height="80" fill="url(#g-dusk)"/>
+      <rect x="4" y="22" width="5" height="44" fill="#fff8e8"/><path d="M3 22h7l-3.5-8z" fill="#fff8e8"/>
+      <rect x="71" y="22" width="5" height="44" fill="#fff8e8"/><path d="M70 22h7l-3.5-8z" fill="#fff8e8"/>
+      <path d="M0 56h80v24H0z" fill="#efe6d4"/>
+      <path d="M22 34 40 28l18 6v30L40 70 22 64z" fill="#121212"/><path d="M40 28v42" stroke="#2a2a2a"/>
+      <path d="M22 40 40 34l18 6v4l-18-6-18 6z" fill="#d4a63c"/>
+      <g fill="#fff"><circle cx="12" cy="71" r="2.2"/><circle cx="18" cy="74" r="2.2"/><circle cx="62" cy="73" r="2.2"/><circle cx="68" cy="70" r="2.2"/><circle cx="30" cy="75" r="2.2"/><circle cx="52" cy="76" r="2.2"/></g>
+    </symbol>
+    <symbol id="il-mosque" viewBox="0 0 80 80">
+      <rect width="80" height="80" fill="url(#g-night)"/>
+      <circle cx="62" cy="16" r="7" fill="#f7e7a1"/><circle cx="65" cy="14" r="6" fill="#26355f"/>
+      <g fill="#e9f0e2"><rect x="10" y="20" width="5" height="50"/><path d="M9 20h7l-3.5-9z"/><rect x="65" y="28" width="5" height="42"/><path d="M64 28h7l-3.5-9z"/>
+      <path d="M22 70V48a18 16 0 0 1 36 0v22z"/><rect x="18" y="56" width="44" height="14"/></g>
+      <path d="M40 30v-6" stroke="#e9f0e2" stroke-width="2"/>
+      <g fill="#3d8a4d"><path d="M22 48a18 16 0 0 1 36 0z" opacity=".9"/></g>
+      <g fill="#f3c969"><rect x="27" y="58" width="4" height="7" rx="2"/><rect x="38" y="58" width="4" height="12" rx="2"/><rect x="49" y="58" width="4" height="7" rx="2"/></g>
+    </symbol>
+    <symbol id="il-plane" viewBox="0 0 80 80">
+      <rect width="80" height="80" fill="url(#g-sky)"/>
+      <g fill="#fff" opacity=".85"><ellipse cx="18" cy="60" rx="14" ry="5"/><ellipse cx="62" cy="22" rx="12" ry="4"/></g>
+      <g transform="rotate(-24 40 40)"><path d="M14 42c0-3 4-5 9-5h34c6 0 10 3 10 5s-4 5-10 5H23c-5 0-9-2-9-5z" fill="#fff"/>
+      <path d="M36 37 26 22h6l16 15zM36 47 28 60h6l14-13zM18 37l-4-8h4l6 8z" fill="#2f7d3c"/>
+      <path d="M57 39h6" stroke="#5fa8e8" stroke-width="2"/></g>
+    </symbol>
+    <symbol id="il-tent" viewBox="0 0 80 80">
+      <rect width="80" height="80" fill="url(#g-sand)"/>
+      <path d="M0 40l14-12 14 10 12-8 16 12 24-10v8H0z" fill="#c9a874"/>
+      <g fill="#fff" stroke="#c9cfd6" stroke-width=".8"><path d="M2 62l9-10 9 10z"/><path d="M20 62l9-10 9 10z"/><path d="M38 62l9-10 9 10z"/><path d="M56 62l9-10 9 10z"/>
+      <path d="M-6 76l9-10 9 10z"/><path d="M12 76l9-10 9 10z"/><path d="M30 76l9-10 9 10z"/><path d="M48 76l9-10 9 10z"/><path d="M66 76l9-10 9 10z"/></g>
+    </symbol>
+    <symbol id="il-hero" viewBox="0 0 412 200" preserveAspectRatio="xMidYMid slice">
+      <rect width="412" height="200" fill="url(#g-dusk)"/>
+      <circle cx="330" cy="58" r="26" fill="#fff3d6" opacity=".9"/>
+      <g fill="#fff8e8"><rect x="40" y="40" width="10" height="120"/><path d="M38 40h14l-7-18z"/><rect x="362" y="40" width="10" height="120"/><path d="M360 40h14l-7-18z"/>
+        <rect x="92" y="70" width="8" height="90"/><path d="M90 70h12l-6-14z"/><rect x="312" y="70" width="8" height="90"/><path d="M310 70h12l-6-14z"/></g>
+      <path d="M0 140h412v60H0z" fill="#efe6d4"/>
+      <path d="M150 86 206 70l56 16v80l-56 16-56-16z" fill="#121212"/><path d="M206 70v112" stroke="#2c2c2c" stroke-width="2"/>
+      <path d="M150 102 206 86l56 16v10l-56-16-56 16z" fill="#d4a63c"/>
+      <g fill="#fff"><circle cx="60" cy="178" r="5"/><circle cx="80" cy="186" r="5"/><circle cx="100" cy="176" r="5"/><circle cx="122" cy="188" r="5"/><circle cx="292" cy="186" r="5"/><circle cx="314" cy="176" r="5"/><circle cx="336" cy="188" r="5"/><circle cx="356" cy="178" r="5"/><circle cx="142" cy="192" r="5"/><circle cx="272" cy="192" r="5"/></g>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- =================================================================== 1 -->
+<section class="slide light" id="s1">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>INFO HAJI</span>
+    <h1>Cek info haji<br>cukup pakai<br><em>nomor porsi</em></h1>
+    <p class="sub">Estimasi berangkat, pelunasan, kloter, sampai hotel. Semua di satu aplikasi.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app">
+      <div class="sb lime-bg"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <div class="hdr lime-bg">
+        <div class="t">INFO HAJI</div>
+        <div class="st">Cek estimasi keberangkatan, biaya pelunasan, dan info lengkap haji Anda!</div>
+        <div class="irow">
+          <div class="inp"><svg width="20" height="20"><use href="#ic-search"/></svg>3012345678<span class="caret"></span></div>
+          <div class="btn">Cek <svg width="20" height="20"><use href="#ic-send"/></svg></div>
+        </div>
+      </div>
+      <div class="body" data-news="0,1,2,3"></div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:500px;top:1390px;padding:30px 36px;transform:rotate(-3deg);display:flex;align-items:center;gap:22px">
+    <div style="width:74px;height:74px;border-radius:22px;background:#6ab04c;color:#fff;display:flex;align-items:center;justify-content:center"><svg width="44" height="44"><use href="#ic-check"/></svg></div>
+    <div><div style="font-weight:800;font-size:34px;line-height:1.15">Tanpa daftar</div><div style="font-weight:600;font-size:26px;color:#5b6472;margin-top:4px">Ketik 10 digit, tekan Cek</div></div>
+  </div>
+</section>
+
+<!-- =================================================================== 2 -->
+<section class="slide dark" id="s2">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>ESTIMASI KEBERANGKATAN</span>
+    <h1>Tahu kapan Anda<br>berangkat ke<br><em>Tanah Suci</em></h1>
+    <p class="sub">Lihat perkiraan tahun berangkat, posisi porsi, dan kuota provinsi.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app ro">
+      <div class="sb"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <div class="appbar"><svg width="24" height="24"><use href="#ic-back"/></svg></div>
+      <div class="prof">
+        <div class="av" style="background:#e53e3e">AF</div>
+        <div class="pn">AHMAD FAUZI</div>
+        <div class="pg">KAB. SIDOARJO, JAWA TIMUR</div>
+        <div class="pp">Nomor Porsi: 3012345678</div>
+      </div>
+      <div class="div"></div>
+      <div class="sec"><h3>Perkiraan Keberangkatan</h3>
+        <div class="ir"><div class="ii"><div class="lb">Tahun Berangkat (Masehi)</div><div class="vl">2031</div></div><div class="ii"><div class="lb">Tahun Berangkat (Hijriah)</div><div class="vl">1452</div></div></div>
+      </div>
+      <div class="div"></div>
+      <div class="sec"><h3>Informasi Porsi &amp; Kuota</h3>
+        <div class="ir"><div class="ii"><div class="lb">Posisi Porsi Saat Ini</div><div class="vl">12.480</div></div><div class="ii"><div class="lb">Kuota Provinsi</div><div class="vl">35.152</div></div></div>
+      </div>
+      <div class="div"></div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:84px;top:1380px;width:700px;padding:38px 44px;transform:rotate(-2.5deg)">
+    <div style="font-weight:700;font-size:26px;letter-spacing:.1em;color:#6ab04c">PERKIRAAN BERANGKAT</div>
+    <div style="display:flex;align-items:baseline;gap:26px;margin-top:10px">
+      <div style="font-weight:800;font-size:104px;line-height:1;letter-spacing:-.03em;color:#0f2412">2031</div>
+      <div style="font-weight:700;font-size:40px;color:#5b6472">M &nbsp;/&nbsp; 1452 H</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== 3 -->
+<section class="slide light" id="s3">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>STATUS PELUNASAN</span>
+    <h1>Pantau biaya &amp;<br><em>status pelunasan</em></h1>
+    <p class="sub">BIPIH, setoran awal, nilai manfaat, dan jumlah yang harus dilunasi.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app ro">
+      <div class="sb"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <div class="appbar"><svg width="24" height="24"><use href="#ic-back"/></svg></div>
+      <div class="sec"><h3>Informasi Pelunasan</h3>
+        <div class="ir"><div class="ii"><div class="lb">Tahun Pelunasan</div><div class="vl">1446</div></div><div class="ii"><div class="lb">Tahap Pelunasan</div><div class="vl">1</div></div></div>
+        <div class="ir"><div class="ii"><div class="lb">Status Cadangan</div><div class="vl">NON CADANGAN</div></div><div class="ii"><div class="lb">Status Istitha'ah</div><div class="vl">MEMENUHI</div></div></div>
+        <div class="ii solo"><div class="lb">Biaya Perjalanan Ibadah Haji (BIPIH)</div><div class="vl">Rp 55.431.750</div></div>
+        <div class="ii solo"><div class="lb">Setoran Awal</div><div class="vl">Rp 25.000.000</div></div>
+        <div class="ii solo"><div class="lb">Nilai Manfaat</div><div class="vl">Rp 2.140.330</div></div>
+        <div class="ii solo"><div class="lb">Jumlah Pelunasan</div><div class="vl">Rp 28.291.420</div></div>
+      </div>
+      <div class="div"></div>
+      <div class="sec"><h3>Informasi Bank &amp; Embarkasi</h3>
+        <div class="ii solo"><div class="lb">Bank Penerima Setoran</div><div class="vl">BANK SYARIAH INDONESIA</div></div>
+        <div class="ii solo"><div class="lb">Embarkasi</div><div class="vl">SURABAYA (SUB)</div></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:440px;top:1540px;width:560px;padding:34px 38px;transform:rotate(3deg)">
+    <div style="display:inline-flex;align-items:center;gap:10px;font-weight:800;font-size:28px;color:#38a169;background:#c6f6d5;padding:10px 18px;border-radius:12px"><svg width="30" height="30" style="color:#38a169"><use href="#ic-check"/></svg>SUDAH LUNAS</div>
+    <div style="font-weight:600;font-size:26px;color:#5b6472;margin-top:22px">Jumlah Pelunasan</div>
+    <div style="font-weight:800;font-size:52px;letter-spacing:-.02em;color:#0f2412;margin-top:4px">Rp 28.291.420</div>
+  </div>
+</section>
+
+<!-- =================================================================== 4 -->
+<section class="slide dark" id="s4">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>JADWAL KEBERANGKATAN</span>
+    <h1>Jadwal kloter &amp;<br><em>penerbangan</em><br>lengkap</h1>
+    <p class="sub">Tanggal, jam terbang, kloter, rombongan, dan kontak ketua kloter.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app">
+      <div class="sb"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <div class="appbar"><svg width="24" height="24"><use href="#ic-back"/></svg></div>
+      <div class="prof">
+        <div class="av" style="background:#3182ce">SA</div>
+        <div class="pn">SITI AMINAH</div>
+        <div class="pg">KOTA MALANG, JAWA TIMUR</div>
+        <div class="pp">Nomor Porsi: 1300987654</div>
+        <div class="pp">No. Paspor: X1234567</div>
+        <div class="badge lunas">SUDAH LUNAS</div>
+      </div>
+      <div class="div"></div>
+      <div class="sec"><h3>Informasi Keberangkatan</h3>
+        <div class="ii solo"><div class="lb">Tanggal &amp; Waktu Berangkat</div><div class="vl">12 Mei 2025 Pukul 08:30</div></div>
+        <div class="ii solo"><div class="lb">Kloter Keberangkatan</div><div class="vl">SUB 18</div></div>
+        <div class="ii solo"><div class="lb">No. Rombongan Berangkat</div><div class="vl">4</div></div>
+        <div class="ii solo"><div class="lb">Ketua Kloter Berangkat</div><div class="vl">H. Abdul Rahman</div></div>
+        <div class="ii solo"><div class="lb">No. HP Ketua Kloter</div><div class="vl">0812-0000-1234</div></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:110px;top:1500px;width:860px;padding:0;transform:rotate(-2deg);overflow:hidden;display:flex">
+    <div style="flex:1;padding:34px 40px">
+      <div style="font-weight:700;font-size:24px;letter-spacing:.1em;color:#6ab04c">KLOTER</div>
+      <div style="font-weight:800;font-size:64px;letter-spacing:-.02em;color:#0f2412;line-height:1.1">SUB 18</div>
+    </div>
+    <div style="width:0;border-left:3px dashed #d5dbe2;margin:22px 0"></div>
+    <div style="flex:1.25;padding:34px 40px">
+      <div style="font-weight:700;font-size:24px;letter-spacing:.1em;color:#6ab04c">BERANGKAT</div>
+      <div style="font-weight:800;font-size:40px;color:#0f2412;line-height:1.2;margin-top:4px">12 Mei 2025</div>
+      <div style="font-weight:600;font-size:30px;color:#5b6472">Pukul 08:30</div>
+    </div>
+  </div>
+</section>
+
+<!-- =================================================================== 5 -->
+<section class="slide light" id="s5">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>AKOMODASI</span>
+    <h1>Info hotel di<br><em>Makkah</em> &amp;<br><em>Madinah</em></h1>
+    <p class="sub">Nama hotel, nomor kamar, wilayah, dan sektor Anda.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app">
+      <div class="sb"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <div class="appbar"><svg width="24" height="24"><use href="#ic-back"/></svg></div>
+      <div class="sec"><h3>Akomodasi Makkah</h3>
+        <div class="ii solo"><div class="lb">Hotel</div><div class="vl">HOTEL AL MANAR GRAND</div></div>
+        <div class="ii solo"><div class="lb">Nomor Hotel/Kamar</div><div class="vl">512 / 1408</div></div>
+        <div class="ii solo"><div class="lb">Wilayah</div><div class="vl">SYISYAH</div></div>
+        <div class="ii solo"><div class="lb">Sektor</div><div class="vl">4</div></div>
+      </div>
+      <div class="div"></div>
+      <div class="sec"><h3>Akomodasi Madinah</h3>
+        <div class="ii solo"><div class="lb">Hotel</div><div class="vl">HOTEL NUR TAIBAH</div></div>
+        <div class="ii solo"><div class="lb">Nomor Hotel/Kamar</div><div class="vl">207 / 0915</div></div>
+        <div class="ii solo"><div class="lb">Wilayah</div><div class="vl">MARKAZIYAH</div></div>
+        <div class="ii solo"><div class="lb">Sektor</div><div class="vl">2</div></div>
+      </div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:470px;top:1250px;width:540px;padding:30px;transform:rotate(3deg);display:flex;gap:26px;align-items:center">
+    <svg width="120" height="120" style="border-radius:22px;flex:none"><use href="#il-kaaba"/></svg>
+    <div><div style="font-weight:700;font-size:24px;letter-spacing:.1em;color:#6ab04c">MAKKAH</div>
+      <div style="font-weight:800;font-size:34px;line-height:1.15;color:#0f2412;margin-top:4px">Al Manar Grand</div>
+      <div style="font-weight:600;font-size:26px;color:#5b6472;margin-top:4px">Syisyah · Sektor 4</div></div>
+  </div>
+</section>
+
+<!-- =================================================================== 6 -->
+<section class="slide dark" id="s6">
+  <div class="pattern"></div>
+  <div class="copy">
+    <span class="pill"><i></i>BERITA HAJI</span>
+    <h1>Kabar haji<br><em>terbaru</em> setiap<br>hari</h1>
+    <p class="sub">Berita nasional, internasional, dan hikmah seputar ibadah haji.</p>
+  </div>
+  <div class="phone"><div class="screen"><div class="cam"></div>
+    <div class="app">
+      <div class="sb" style="position:absolute;left:0;right:0;z-index:2;color:#3a2a10"><span>09:41</span><span class="r"><svg width="14" height="14"><use href="#ic-wifi"/></svg><svg width="13" height="13"><use href="#ic-sig"/></svg><svg width="13" height="13"><use href="#ic-bat"/></svg></span></div>
+      <svg class="nimg" width="412" height="230" style="display:block"><use href="#il-hero" width="412" height="230"/></svg>
+      <div class="cap">Ilustrasi: jamaah haji di pelataran Masjidil Haram.</div>
+      <div class="nh">
+        <div class="tt">Jamaah Haji Diimbau Pulihkan Fisik 3 Hari Jelang Armuzna</div>
+        <div class="meta"><b>Internasional</b><span>·</span><span>23/5/2025</span></div>
+      </div>
+      <div class="np">
+        <p>Menjelang puncak ibadah haji di Arafah, Muzdalifah, dan Mina, jamaah diimbau mengurangi aktivitas di luar hotel agar kondisi fisik tetap prima.</p>
+        <p>Petugas kesehatan mengingatkan jamaah untuk cukup istirahat, minum air putih secara teratur, dan menggunakan alat pelindung diri saat berada di luar ruangan.</p>
+        <p>Jamaah lansia dan berisiko tinggi diminta selalu didampingi oleh pendamping atau ketua rombongan.</p>
+        <p>Selain itu, jamaah diingatkan untuk membawa perlengkapan pribadi secukupnya, seperti obat-obatan rutin, payung, dan semprotan air, agar perjalanan menuju Arafah berjalan lancar.</p>
+        <p>Informasi jadwal pergerakan akan disampaikan oleh ketua kloter masing-masing melalui grup rombongan.</p>
+      </div>
+    </div>
+  </div></div>
+  <div class="callout" style="left:96px;top:1640px;width:888px;padding:32px 38px;transform:rotate(-2deg)">
+    <div style="font-weight:700;font-size:24px;letter-spacing:.1em;color:#6ab04c;margin-bottom:18px">KATEGORI BERITA</div>
+    <div style="display:flex;flex-wrap:wrap;gap:14px;font-weight:700;font-size:28px;color:#fff">
+      <span style="background:#28a745;padding:10px 20px">NASIONAL</span>
+      <span style="background:#007bff;padding:10px 20px">INTERNASIONAL</span>
+      <span style="background:#6c757d;padding:10px 20px">HIKMAH</span>
+      <span style="background:#6f42c1;padding:10px 20px">SYARIAH</span>
+      <span style="background:#fd7e14;padding:10px 20px">KHUTBAH</span>
+    </div>
+  </div>
+</section>
+
+<script>
+const NEWS = [
+  {c:'Internasional', col:'#007bff', d:'Jamaah Haji Diimbau Pulihkan Fisik 3 Hari Jelang Armuzna', dt:'Jumat, 23 Mei 2025', il:'kaaba'},
+  {c:'Nasional', col:'#28a745', d:'Tips Sehat Terhindar dari Heat Stroke untuk Jamaah Haji', dt:'Kamis, 22 Mei 2025', il:'tent'},
+  {c:'Internasional', col:'#007bff', d:'Kloter Terakhir Gelombang Pertama Tiba di Madinah', dt:'Kamis, 22 Mei 2025', il:'plane'},
+  {c:'Hikmah', col:'#6c757d', d:'Makna dan Keutamaan Wukuf di Arafah bagi Jamaah Haji', dt:'Rabu, 21 Mei 2025', il:'mosque'},
+  {c:'Syariah', col:'#6f42c1', d:'Panduan Lengkap Manasik Haji untuk Jamaah Pemula', dt:'Selasa, 20 Mei 2025', il:'mosque'},
+];
+document.querySelectorAll('[data-news]').forEach(el => {
+  el.innerHTML = el.dataset.news.split(',').map(i => {
+    const n = NEWS[+i];
+    return `<div class="card"${el.closest('.callout') ? ' style="margin:0;border:0"' : ''}><div class="row"><div class="l">
+      <span class="tag" style="background:${n.col}">${n.c.toUpperCase()}</span>
+      <div class="d">${n.d}</div><div class="dt">${n.dt}</div></div>
+      <svg class="thumb" viewBox="0 0 80 80"><use href="#il-${n.il}"/></svg></div></div>`;
+  }).join('');
+});
+</script>
+</body>
+</html>

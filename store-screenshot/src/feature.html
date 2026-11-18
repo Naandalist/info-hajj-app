@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<title>Info Haji Feature Graphic</title>
+<style>
+@font-face{font-family:PJS;font-weight:500;src:url(../../assets/fonts/PlusJakartaSans-Medium.ttf)}
+@font-face{font-family:PJS;font-weight:600;src:url(../../assets/fonts/PlusJakartaSans-SemiBold.ttf)}
+@font-face{font-family:PJS;font-weight:700;src:url(../../assets/fonts/PlusJakartaSans-Bold.ttf)}
+@font-face{font-family:PJS;font-weight:800;src:url(../../assets/fonts/PlusJakartaSans-ExtraBold.ttf)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1024px;height:500px;overflow:hidden;background:#0f2a15}
+.fg{position:relative;width:1024px;height:500px;overflow:hidden;font-family:PJS,sans-serif;color:#fff;
+  background:
+    radial-gradient(620px 420px at 50% 42%, #1d4a26 0%, #123219 45%, #0a2010 80%, #071709 100%)}
+.bg{position:absolute;inset:0}
+.rays{position:absolute;left:50%;top:-140px;width:1200px;height:900px;transform:translateX(-50%);
+  background:conic-gradient(from 180deg at 50% 0%, transparent 0deg 150deg,
+    rgba(186,220,88,.07) 160deg, transparent 166deg, rgba(186,220,88,.05) 172deg, transparent 178deg,
+    rgba(186,220,88,.07) 184deg, transparent 190deg, rgba(186,220,88,.05) 196deg, transparent 202deg, transparent 360deg);
+  -webkit-mask-image:radial-gradient(closest-side at 50% 15%, #000, transparent);filter:blur(2px)}
+.grain{position:absolute;inset:0;opacity:.07;mix-blend-mode:overlay}
+
+.center{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.ic{width:76px;height:76px;border-radius:20px;background:#fff;display:flex;align-items:center;justify-content:center;
+  box-shadow:0 12px 30px rgba(0,0,0,.35), 0 0 0 1px rgba(255,255,255,.6) inset}
+.ic img{width:58px;height:58px}
+h1{font-weight:800;font-size:60px;line-height:1;letter-spacing:-.03em;margin-top:22px}
+h1 em{font-style:normal;color:#badc58}
+.tag{font-weight:500;font-size:19px;color:rgba(255,255,255,.72);margin-top:14px;letter-spacing:.005em}
+
+/* search bar, drawn after the app's input + Cek button */
+.search{display:flex;align-items:center;gap:8px;margin-top:30px;padding:6px;border-radius:14px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14)}
+.field{display:flex;align-items:center;gap:10px;width:300px;height:44px;padding:0 16px;border-radius:9px;background:#fff;
+  font-weight:600;font-size:16px;color:#1b2a1d;letter-spacing:.06em}
+.field .ph{color:#8a958c;letter-spacing:0;font-weight:500}
+.caret{width:1.5px;height:20px;background:#1b2a1d;margin-left:-9px}
+.btn{display:flex;align-items:center;gap:8px;height:44px;padding:0 18px;border-radius:9px;background:#badc58;color:#0f2412;font-weight:800;font-size:16px}
+</style>
+</head>
+<body>
+<div class="fg">
+  <!-- geometric tessellation, fades out toward the center -->
+  <svg class="bg" width="1024" height="500" viewBox="0 0 1024 500">
+    <defs>
+      <radialGradient id="fade" cx="512" cy="240" r="560" gradientUnits="userSpaceOnUse">
+        <stop offset="0" stop-color="#000"/><stop offset=".38" stop-color="#000"/>
+        <stop offset=".62" stop-color="#fff" stop-opacity=".55"/><stop offset="1" stop-color="#fff"/>
+      </radialGradient>
+      <mask id="m"><rect width="1024" height="500" fill="url(#fade)"/></mask>
+      <linearGradient id="archFill" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#badc58" stop-opacity=".10"/>
+        <stop offset=".55" stop-color="#badc58" stop-opacity=".03"/>
+        <stop offset="1" stop-color="#badc58" stop-opacity="0"/>
+      </linearGradient>
+      <linearGradient id="archLine" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#d6ef86" stop-opacity=".75"/>
+        <stop offset=".7" stop-color="#badc58" stop-opacity=".25"/>
+        <stop offset="1" stop-color="#badc58" stop-opacity="0"/>
+      </linearGradient>
+    </defs>
+    <g id="tess" mask="url(#m)" fill="none" stroke="#badc58" stroke-opacity=".24" stroke-width=".9" stroke-linejoin="round"></g>
+
+    <!-- pointed arch (mihrab) framing the content -->
+    <radialGradient id="archBase" cx="512" cy="230" r="420" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#1f4d28"/><stop offset=".6" stop-color="#143619"/><stop offset="1" stop-color="#0c2411"/>
+    </radialGradient>
+    <path d="M204 520 V236 C204 136 352 80 512 38 C672 80 820 136 820 236 V520" fill="url(#archBase)"/>
+    <path d="M204 520 V236 C204 136 352 80 512 38 C672 80 820 136 820 236 V520" fill="url(#archFill)"/>
+    <path d="M204 520 V236 C204 136 352 80 512 38 C672 80 820 136 820 236 V520" fill="none" stroke="url(#archLine)" stroke-width="1.6"/>
+    <path d="M220 520 V240 C220 148 362 96 512 58 C662 96 804 148 804 240 V520" fill="none" stroke="url(#archLine)" stroke-width=".8" stroke-opacity=".7"/>
+    <!-- finial: crescent above the apex -->
+    <g transform="translate(512 22)">
+      <path d="M0 16 V6" stroke="#d6ef86" stroke-width="1.4" stroke-opacity=".8"/>
+      <path d="M-5 -2 a7 7 0 1 0 10 -6 a5.5 5.5 0 1 1 -10 6z" fill="#d6ef86" fill-opacity=".9"/>
+    </g>
+  </svg>
+  <div class="rays"></div>
+  <svg class="grain" width="1024" height="500"><filter id="n"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" stitchTiles="stitch"/><feColorMatrix values="0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 1 0"/></filter><rect width="1024" height="500" filter="url(#n)"/></svg>
+
+  <div class="center">
+    <div class="ic"><img src="../../website/src/assets/infohaji-icon.webp" alt=""></div>
+    <h1>Info <em>Haji</em></h1>
+    <p class="tag">Cek estimasi keberangkatan haji cukup dengan nomor porsi</p>
+    <div class="search">
+      <div class="field">
+        <svg width="18" height="18" viewBox="0 0 24 24"><circle cx="10.5" cy="10.5" r="7" fill="none" stroke="#6b766d" stroke-width="2.2"/><path d="m16 16 5 5" stroke="#6b766d" stroke-width="2.2" stroke-linecap="round"/></svg>
+        3012345678<span class="caret"></span>
+      </div>
+      <div class="btn">Cek
+        <svg width="16" height="16" viewBox="0 0 24 24"><path d="M2 21 23 12 2 3v7l15 2-15 2z" fill="#0f2412"/></svg>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// Khatam-style tessellation: {8/3} star at every lattice point, joined by an octagon ring.
+const g = document.getElementById('tess');
+const T = 88, R = T * 0.5, ns = 'http://www.w3.org/2000/svg';
+let d = '';
+const star = (cx, cy, r) => {
+  const p = k => [cx + r * Math.cos(Math.PI / 8 + k * Math.PI / 4), cy + r * Math.sin(Math.PI / 8 + k * Math.PI / 4)];
+  for (let k = 0; k < 8; k++) { const a = p(k), b = p(k + 3); d += `M${a}L${b}`; }
+  const o = r * Math.cos(3 * Math.PI / 8) / Math.cos(Math.PI / 8);
+  for (let k = 0; k < 8; k++) {
+    const a = [cx + o * Math.cos(k * Math.PI / 4), cy + o * Math.sin(k * Math.PI / 4)];
+    const b = [cx + o * Math.cos((k + 1) * Math.PI / 4), cy + o * Math.sin((k + 1) * Math.PI / 4)];
+    d += `M${a}L${b}`;
+  }
+};
+for (let x = -T; x <= 1024 + T; x += T)
+  for (let y = -T; y <= 500 + T; y += T) {
+    star(x + 512 % T, y + 250 % T, R);
+    star(x + 512 % T + T / 2, y + 250 % T + T / 2, R * 0.42);
+  }
+const path = document.createElementNS(ns, 'path');
+path.setAttribute('d', d.replace(/,/g, ' '));
+g.appendChild(path);
+</script>
+</body>
+</html>
