@@ -5,6 +5,7 @@ import {
   NativeAdView,
   NativeAsset,
   NativeAssetType,
+  NativeMediaView,
 } from 'react-native-google-mobile-ads';
 import {AppColors, AppFonts} from '@/constants';
 import {nativeAdUnitId} from './adUnits';
@@ -98,13 +99,18 @@ const NativeAdCard: React.FC<NativeAdCardProps> = ({slotKey}) => {
           </View>
 
           {image?.url ? (
-            <NativeAsset assetType={imageAssetType}>
-              <Image
-                source={{uri: image.url}}
-                style={styles.imageStyle}
-                resizeMode="cover"
-              />
-            </NativeAsset>
+            imageAssetType === NativeAssetType.IMAGE ? (
+              // AdMob validator requires the main asset in a MediaView.
+              <NativeMediaView resizeMode="cover" style={styles.imageStyle} />
+            ) : (
+              <NativeAsset assetType={imageAssetType}>
+                <Image
+                  source={{uri: image.url}}
+                  style={styles.imageStyle}
+                  resizeMode="cover"
+                />
+              </NativeAsset>
+            )
           ) : null}
         </View>
       </NativeAdView>
