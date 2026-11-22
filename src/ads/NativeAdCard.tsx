@@ -182,8 +182,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageStyle: {
-    width: 80,
-    height: 80,
+    // AdMob requires >= 120x120dp for video-capable MediaView.
+    width: 120,
+    height: 120,
     borderRadius: 6,
     backgroundColor: '#E0E0E0',
   },
