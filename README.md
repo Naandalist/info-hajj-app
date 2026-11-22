@@ -1,6 +1,6 @@
 # Info Haji
 
-[![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/Naandalist/info-hajj-app)
+[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/Naandalist/info-hajj-app)
 [![React Native](https://img.shields.io/badge/React%20Native-0.88.1-61DAFB.svg)](https://reactnative.dev)
 [![Astro](https://img.shields.io/github/package-json/dependency-version/Naandalist/info-hajj-app/astro?filename=website%2Fpackage.json&logo=astro&logoColor=white&color=FF5D01)](https://astro.build)
 [![Website](https://img.shields.io/github/actions/workflow/status/Naandalist/info-hajj-app/pages.yml?branch=main&label=website)](https://github.com/Naandalist/info-hajj-app/actions/workflows/pages.yml)
@@ -171,5 +171,5 @@ For questions or support, please contact the development team.
 
 ---
 
-**Version**: 2.0.1  
+**Version**: 2.3.0  
 **Maintained by**: Naandalist

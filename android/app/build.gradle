@@ -73,8 +73,8 @@ android {
     applicationId    "com.naandalist.info_haji"
     minSdkVersion    rootProject.ext.minSdkVersion
     targetSdkVersion rootProject.ext.targetSdkVersion
-    versionCode      7
-    versionName      "2.2.3"
+    versionCode      8
+    versionName      "2.3.0"
     resValue "string", "build_config_package",
       applicationId
     manifestPlaceholders.admobAppId = admobAppId
@@ -109,6 +109,7 @@ android {
     release {
       signingConfig  signingConfigs.release
       minifyEnabled  enableProguardInReleaseBuilds
+      shrinkResources enableProguardInReleaseBuilds
       proguardFiles  getDefaultProguardFile("proguard-android-optimize.txt"),
         "proguard-rules.pro"
     }
