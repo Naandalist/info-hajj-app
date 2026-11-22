@@ -5,6 +5,7 @@ import com.facebook.react.ReactActivity
 import com.facebook.react.ReactActivityDelegate
 import com.facebook.react.defaults.DefaultNewArchitectureEntryPoint.fabricEnabled
 import com.facebook.react.defaults.DefaultReactActivityDelegate
+import com.swmansion.rnscreens.fragment.restoration.RNScreensFragmentFactory
 import com.zoontek.rnbootsplash.RNBootSplash
 
 class MainActivity : ReactActivity() {
@@ -16,9 +17,10 @@ class MainActivity : ReactActivity() {
   override fun getMainComponentName(): String = "info_haji"
 
   override fun onCreate(savedInstanceState: Bundle?) {
+    supportFragmentManager.fragmentFactory = RNScreensFragmentFactory()
     // keep the native splash up until JS is ready
     RNBootSplash.init(this, R.style.BootTheme)
-    super.onCreate(null)
+    super.onCreate(savedInstanceState)
   }
 
   /**
