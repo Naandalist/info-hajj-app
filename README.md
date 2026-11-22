@@ -1,7 +1,7 @@
 # Info Haji
 
 [![Version](https://img.shields.io/badge/version-2.0.1-blue.svg)](https://github.com/Naandalist/info-hajj-app)
-[![React Native](https://img.shields.io/badge/React%20Native-0.79-61DAFB.svg)](https://reactnative.dev)
+[![React Native](https://img.shields.io/badge/React%20Native-0.88.1-61DAFB.svg)](https://reactnative.dev)
 [![Astro](https://img.shields.io/github/package-json/dependency-version/Naandalist/info-hajj-app/astro?filename=website%2Fpackage.json&logo=astro&logoColor=white&color=FF5D01)](https://astro.build)
 [![Website](https://img.shields.io/github/actions/workflow/status/Naandalist/info-hajj-app/pages.yml?branch=main&label=website)](https://github.com/Naandalist/info-hajj-app/actions/workflows/pages.yml)
 [![Google Play](https://img.shields.io/badge/Google_Play-Info_Haji-3DDC84?logo=googleplay&logoColor=white)](https://play.google.com/store/apps/details?id=com.naandalist.info_haji)
@@ -9,7 +9,7 @@
 
 A React Native mobile application that provides information for Indonesian Hajj pilgrims, including departure schedules, pilgrim details, payment status, and official news from Media Nasional.
 
-This repository holds the Android app and its landing page.
+This repository holds the mobile app (Android and iOS) and its landing page.
 
 | Path                    | What it is                                                            | Stack                    |
 | ----------------------- | --------------------------------------------------------------------- | ------------------------ |
@@ -27,7 +27,7 @@ This repository holds the Android app and its landing page.
 
 ## Tech Stack
 
-- **Framework**: React Native 0.79.7
+- **Framework**: React Native 0.88.1
 - **Language**: TypeScript
 - **State Management**: Redux Toolkit with RTK Query
 - **Navigation**: React Navigation 7
@@ -37,11 +37,11 @@ This repository holds the Android app and its landing page.
 
 ## Prerequisites
 
-- Node.js >= 18
+- Node.js ^22.13.0, ^24.3.0, or >= 26.0.0
 - npm
 - React Native development environment ([setup guide](https://reactnative.dev/docs/environment-setup))
-- For iOS: Xcode and CocoaPods
-- For Android: Android Studio and JDK
+- For iOS: Xcode 16.1+ and CocoaPods
+- For Android: Android Studio and JDK 17+
 
 The app lockfile is `package-lock.json`. `website/` is a separate npm project with its own `package-lock.json`. Metro ignores it.
 
