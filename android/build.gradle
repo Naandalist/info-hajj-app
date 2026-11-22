@@ -1,18 +1,18 @@
 buildscript {
     ext {
-        buildToolsVersion = "35.0.0"
+        buildToolsVersion = "37.0.0"
         minSdkVersion = 24
-        compileSdkVersion = 36
+        compileSdkVersion = 37
         targetSdkVersion = 36
         ndkVersion = "27.1.12297006"
-        kotlinVersion = "2.0.21"
+        kotlinVersion = "2.2.0"
     }
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
-        classpath("com.android.tools.build:gradle:8.9.2")
+        classpath("com.android.tools.build:gradle")
         classpath("com.facebook.react:react-native-gradle-plugin")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin")
     }
@@ -20,8 +20,8 @@ buildscript {
 
 apply plugin: "com.facebook.react.rootproject"
 
-// play-services-ads 25.4.0 (via react-native-google-mobile-ads 16.5.0)
-// is compiled with Kotlin 2.3 metadata; RN 0.79 ships Kotlin 2.0.21.
+// play-services-ads (via react-native-google-mobile-ads 17.4.0)
+// may be compiled with newer Kotlin metadata than this app's Kotlin.
 subprojects { subproject ->
     subproject.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
         compilerOptions {

@@ -2,6 +2,9 @@ module.exports = {
   presets: ['module:@react-native/babel-preset'],
   plugins: [
     // Add other plugins here if you have them
+    // @native-html/render ships htmlparser2 ESM with `export * as x` syntax,
+    // which must be transformed before the commonjs plugin rewrites exports.
+    '@babel/plugin-transform-export-namespace-from',
     [
       'module-resolver',
       {

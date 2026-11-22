@@ -5,6 +5,7 @@ import {
   NativeAdView,
   NativeAsset,
   NativeAssetType,
+  NativeMediaView,
 } from 'react-native-google-mobile-ads';
 import {AppColors, AppFonts} from '@/constants';
 import {nativeAdUnitId} from './adUnits';
@@ -53,10 +54,10 @@ const NativeAdCard: React.FC<NativeAdCardProps> = ({slotKey}) => {
     return null;
   }
 
-  const image = nativeAd.images?.[0] ?? nativeAd.icon;
-  const imageAssetType = nativeAd.images?.[0]
-    ? NativeAssetType.IMAGE
-    : NativeAssetType.ICON;
+  // AdMob validator: the main image/video asset must render inside a
+  // MediaView, never a plain Image. Icon-only ads keep the Image fallback.
+  const hasMainMedia = !!nativeAd.images?.[0] || !!nativeAd.mediaContent;
+  const icon = nativeAd.icon;
 
   return (
     <View style={styles.cardContainer}>
@@ -97,10 +98,13 @@ const NativeAdCard: React.FC<NativeAdCardProps> = ({slotKey}) => {
             ) : null}
           </View>
 
-          {image?.url ? (
-            <NativeAsset assetType={imageAssetType}>
+          {hasMainMedia ? (
+            // AdMob validator requires the main asset in a MediaView.
+            <NativeMediaView resizeMode="cover" style={styles.imageStyle} />
+          ) : icon?.url ? (
+            <NativeAsset assetType={NativeAssetType.ICON}>
               <Image
-                source={{uri: image.url}}
+                source={{uri: icon.url}}
                 style={styles.imageStyle}
                 resizeMode="cover"
               />
@@ -178,8 +182,9 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
   imageStyle: {
-    width: 80,
-    height: 80,
+    // AdMob requires >= 120x120dp for video-capable MediaView.
+    width: 120,
+    height: 120,
     borderRadius: 6,
     backgroundColor: '#E0E0E0',
   },

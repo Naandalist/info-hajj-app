@@ -10,7 +10,7 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import {useRoute} from '@react-navigation/native';
 import type {RouteProp} from '@react-navigation/native';
-import RenderHTML from 'react-native-render-html';
+import RenderHtml from '@native-html/render';
 import {useGetArticleByIdQuery} from '@/services/newsApi';
 import {removeBrTags} from '@/utils';
 import type {RootStackParamList} from '../../App';
@@ -52,7 +52,7 @@ const DetailNewsScreen: React.FC = () => {
           </View>
         </View>
         <View style={styles.content}>
-          <RenderHTML
+          <RenderHtml
             contentWidth={width - 32}
             source={{html: removeBrTags(detail.content)}}
             tagsStyles={{
