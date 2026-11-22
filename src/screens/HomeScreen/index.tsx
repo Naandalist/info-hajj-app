@@ -11,7 +11,10 @@ import {
   StatusBar,
 } from 'react-native';
 import {CircleFade} from 'react-native-animated-spinkit';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import {
+  SafeAreaView,
+  useSafeAreaInsets,
+} from 'react-native-safe-area-context';
 import {NativeStackScreenProps} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../App';
 import {NativeAdCard} from '@/ads';
@@ -56,6 +59,7 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 const HomeScreen: React.FC<Props> = ({navigation}) => {
+  const insets = useSafeAreaInsets();
   const [appLoading, setAppLoading] = React.useState(false);
   const [getHajiInfo] = useGetEstimasiKeberangkatanMutation();
 
@@ -250,6 +254,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
             )}
             keyExtractor={item => item.id}
             keyboardShouldPersistTaps="handled"
+            contentContainerStyle={{paddingBottom: insets.bottom + 16}}
           />
         </View>
       </SafeAreaView>
@@ -260,7 +265,11 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
           <CircleFade size={48} color={AppColors.white} />
         </View>
       )}
-      <ToastManager showProgressBar={true} showCloseIcon={false} />
+      <ToastManager
+        showProgressBar={true}
+        showCloseIcon={false}
+        topOffset={insets.top + 8}
+      />
     </Pressable>
   );
 };

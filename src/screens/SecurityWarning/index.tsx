@@ -1,4 +1,5 @@
-import {StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, Text} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import RNExitApp from 'react-native-exit-app';
 import {useCountdown} from './hooks';
 
@@ -8,12 +9,12 @@ export default function SecurityWarning() {
   });
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container} edges={['top', 'bottom', 'left', 'right']}>
       <Text style={styles.text}>
         We dont allow jailbroken or debugged devices to use this app.
       </Text>
       <Text style={styles.countdown}>{countdown}</Text>
-    </View>
+    </SafeAreaView>
   );
 }
 
