@@ -1,5 +1,35 @@
 /* eslint-env jest */
 
+jest.mock('react-native-capture-protection', () => ({
+  CaptureProtection: {
+    prevent: jest.fn(),
+    allow: jest.fn(),
+    isPrevented: jest.fn(() => false),
+  },
+}));
+
+jest.mock('react-native-bootsplash', () => ({
+  __esModule: true,
+  default: {
+    hide: jest.fn(() => Promise.resolve()),
+    isVisible: jest.fn(() => false),
+  },
+}));
+
+jest.mock('jail-monkey', () => ({
+  __esModule: true,
+  default: {
+    isJailBroken: jest.fn(() => false),
+    isDebuggedMode: jest.fn(() => Promise.resolve(false)),
+    canMockLocation: jest.fn(() => Promise.resolve(false)),
+  },
+}));
+
+jest.mock('react-native-exit-app', () => ({
+  __esModule: true,
+  default: {exitApp: jest.fn()},
+}));
+
 jest.mock('react-native-config', () => ({
   __esModule: true,
   default: {
@@ -24,6 +54,7 @@ jest.mock('react-native-google-mobile-ads', () => {
     },
     NativeAdView: ({children}) => children,
     NativeAsset: ({children}) => children,
+    NativeMediaView: () => null,
     NativeAssetType: {
       ADVERTISER: 'advertiser',
       BODY: 'body',

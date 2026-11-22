@@ -194,7 +194,7 @@ const HomeScreen: React.FC<Props> = ({navigation}) => {
             </View>
             <TouchableOpacity
               style={[styles.button, appLoading && styles.buttonDisabled]}
-              onPress={handleSubmit(onSubmit)}
+              onPress={() => handleSubmit(onSubmit)()}
               disabled={appLoading || !!errors.porsiNumber}>
               {appLoading ? (
                 <ActivityIndicator color={AppColors.white} />
