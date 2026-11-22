@@ -10,6 +10,7 @@ import {
   SecurityWarning,
 } from '@/screens';
 import Toast from 'react-native-toast-message';
+import {SafeAreaProvider, useSafeAreaInsets} from 'react-native-safe-area-context';
 import RNBootSplash from 'react-native-bootsplash';
 import {DetailEstimasiKeberangkatan} from './services';
 import JailMonkey from 'jail-monkey';
@@ -28,6 +29,11 @@ export type RootStackParamList = {
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
+
+const AppToast = () => {
+  const insets = useSafeAreaInsets();
+  return <Toast topOffset={insets.top + 8} />;
+};
 
 const App = () => {
   useNetworkActivityDevTools();
@@ -64,40 +70,42 @@ const App = () => {
 
   return (
     <Provider store={store}>
-      <NavigationContainer onReady={onReady}>
-        <Stack.Navigator
-          initialRouteName={isSecurityThreat ? 'SecurityWarning' : 'Home'}>
-          <Stack.Screen
-            name="Home"
-            component={HomeScreen}
-            options={{headerShown: false}}
-          />
-          <Stack.Screen
-            name="DetailInfo"
-            component={DetailInfoScreen}
-            options={{
-              headerShown: true,
-              headerShadowVisible: false,
-              title: '',
-              animation: 'slide_from_right',
-            }}
-          />
-          <Stack.Screen
-            name="DetailNews"
-            component={DetailNewsScreen}
-            options={{headerShown: true, title: '', animation: 'fade'}}
-          />
-          <Stack.Screen
-            name="SecurityWarning"
-            component={SecurityWarning}
-            options={{
-              headerShown: false,
-              gestureEnabled: false,
-            }}
-          />
-        </Stack.Navigator>
-        <Toast />
-      </NavigationContainer>
+      <SafeAreaProvider>
+        <NavigationContainer onReady={onReady}>
+          <Stack.Navigator
+            initialRouteName={isSecurityThreat ? 'SecurityWarning' : 'Home'}>
+            <Stack.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{headerShown: false}}
+            />
+            <Stack.Screen
+              name="DetailInfo"
+              component={DetailInfoScreen}
+              options={{
+                headerShown: true,
+                headerShadowVisible: false,
+                title: '',
+                animation: 'slide_from_right',
+              }}
+            />
+            <Stack.Screen
+              name="DetailNews"
+              component={DetailNewsScreen}
+              options={{headerShown: true, title: '', animation: 'fade'}}
+            />
+            <Stack.Screen
+              name="SecurityWarning"
+              component={SecurityWarning}
+              options={{
+                headerShown: false,
+                gestureEnabled: false,
+              }}
+            />
+          </Stack.Navigator>
+          <AppToast />
+        </NavigationContainer>
+      </SafeAreaProvider>
     </Provider>
   );
 };
