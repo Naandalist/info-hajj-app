@@ -54,10 +54,10 @@ const NativeAdCard: React.FC<NativeAdCardProps> = ({slotKey}) => {
     return null;
   }
 
-  const image = nativeAd.images?.[0] ?? nativeAd.icon;
-  const imageAssetType = nativeAd.images?.[0]
-    ? NativeAssetType.IMAGE
-    : NativeAssetType.ICON;
+  // AdMob validator: the main image/video asset must render inside a
+  // MediaView, never a plain Image. Icon-only ads keep the Image fallback.
+  const hasMainMedia = !!nativeAd.images?.[0] || !!nativeAd.mediaContent;
+  const icon = nativeAd.icon;
 
   return (
     <View style={styles.cardContainer}>
@@ -98,19 +98,17 @@ const NativeAdCard: React.FC<NativeAdCardProps> = ({slotKey}) => {
             ) : null}
           </View>
 
-          {image?.url ? (
-            imageAssetType === NativeAssetType.IMAGE ? (
-              // AdMob validator requires the main asset in a MediaView.
-              <NativeMediaView resizeMode="cover" style={styles.imageStyle} />
-            ) : (
-              <NativeAsset assetType={imageAssetType}>
-                <Image
-                  source={{uri: image.url}}
-                  style={styles.imageStyle}
-                  resizeMode="cover"
-                />
-              </NativeAsset>
-            )
+          {hasMainMedia ? (
+            // AdMob validator requires the main asset in a MediaView.
+            <NativeMediaView resizeMode="cover" style={styles.imageStyle} />
+          ) : icon?.url ? (
+            <NativeAsset assetType={NativeAssetType.ICON}>
+              <Image
+                source={{uri: icon.url}}
+                style={styles.imageStyle}
+                resizeMode="cover"
+              />
+            </NativeAsset>
           ) : null}
         </View>
       </NativeAdView>
