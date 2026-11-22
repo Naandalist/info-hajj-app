@@ -1,6 +1,6 @@
 # Info Haji website
 
-Static landing page for the Info Haji app: home, privacy policy, and terms. Astro builds plain HTML for GitHub Pages. The React Native app in the repo root is a separate Yarn project.
+Static landing page for the Info Haji app: home, privacy policy, and terms. Astro builds plain HTML for GitHub Pages. The React Native app in the repo root is a separate npm project.
 
 ```bash
 cd website
