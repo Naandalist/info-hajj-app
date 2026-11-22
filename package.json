@@ -14,8 +14,7 @@
     "start": "react-native start",
     "start:rozenite": "WITH_ROZENITE=true react-native start",
     "test": "jest",
-    "test:api": "bash scripts/test-haji-api.sh",
-    "postinstall": "patch-package"
+    "test:api": "bash scripts/test-haji-api.sh"
   },
   "dependencies": {
     "@native-html/render": "1.0.4",
@@ -63,7 +62,6 @@
     "babel-plugin-module-resolver": "^5.0.2",
     "eslint": "^8.19.0",
     "jest": "^29.6.3",
-    "patch-package": "^8.0.1",
     "prettier": "2.8.8",
     "react-test-renderer": "19.3.0",
     "typescript": "^6.0.3"
